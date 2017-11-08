@@ -15,7 +15,7 @@ About this module
 
 Well, this module does actually nothing.
 
-It's a skeleton module that servers as a template for python(3) projects, i.e.
+It's a skeleton module that servers as a template for python(3) projects:
 
 .. Let's add an image.  Important note here: always when adding a tag with ".." remember to leave a blank line before it!
 
@@ -156,9 +156,9 @@ Here are some possibilities:
     
     ::
     
-      pip3 install git+https://
+      pip3 install git+https://github.com/elsampsa/skeleton
     
-  
+
 
   
 
