@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>skeleton.greeters.fancy &mdash; Skeleton 1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Skeleton 1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Skeleton 1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skeleton.greeters.fancy</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">fancy.py : fancier greeter classes</span>
+
+<span class="sd">* Copyright : 2017 Sampsa Riikonen</span>
+<span class="sd">* Authors  : Sampsa Riikonen</span>
+<span class="sd">* Date     : 2017</span>
+<span class="sd">* Version  : 0.1</span>
+
+<span class="sd">This file is part of the python skeleton example library</span>
+
+<span class="sd">Skeleton example library is free software: you can redistribute it and/or modify it under the terms of the MIT License.  This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the MIT License for more details.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">pre_mod</span> <span class="o">=</span> <span class="s2">&quot;skeleton.greeters.fancy : &quot;</span> <span class="c1"># a string for aux debuggin purposes</span>
+
+<span class="kn">from</span> <span class="nn">skeleton.tools</span> <span class="kn">import</span> <span class="n">parameterCheck</span><span class="p">,</span> <span class="n">parameterInit</span>
+<span class="kn">from</span> <span class="nn">skeleton.greeters.base</span> <span class="kn">import</span> <span class="n">BaseHelloWorld</span> <span class="c1"># it&#39;s good to use the absolute paths here (API user could use simply &quot;from skeleton.greeters import BaseHelloWorld&quot;)</span>
+
+
+
+<div class="viewcode-block" id="FancyHelloWorld"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld">[docs]</a><span class="k">class</span> <span class="nc">FancyHelloWorld</span><span class="p">(</span><span class="n">BaseHelloWorld</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Like BaseHelloWorld, but prints a nice banner! :)</span>
+<span class="sd">  </span>
+<span class="sd">  :param person: String identifying the person</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">parameters</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;person&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>  <span class="c1"># parameter key, type</span>
+    <span class="p">]</span>
+  
+  
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">person</span><span class="p">):</span>
+    <span class="c1"># if you need to call the superclass constructor:</span>
+    <span class="c1"># super().__init__(person) # python3</span>
+    <span class="c1"># super(FancyHelloWorld, self).__init__(person) # python2 compatible</span>
+    
+    <span class="bp">self</span><span class="o">.</span><span class="n">pre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s2">&quot; : &quot;</span> <span class="c1"># auxiliary string for debugging output</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">person</span><span class="o">=</span><span class="n">person</span>
+    <span class="c1"># print(self.pre,&quot;__init__&quot;,&quot;leaving constructor&quot;) # auxiliary debug string</span>
+    <span class="n">parameterCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
+    
+  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">st</span> <span class="o">=</span><span class="s2">&quot;**************</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">st</span><span class="o">+=</span><span class="nb">super</span><span class="p">(</span><span class="n">FancyHelloWorld</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__str__</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="c1"># python2 compatible</span>
+    <span class="n">st</span><span class="o">+=</span><span class="s2">&quot;**************</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">st</span></div>
+
+
+
+<div class="viewcode-block" id="UberFancyHelloWorld"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.UberFancyHelloWorld">[docs]</a><span class="k">class</span> <span class="nc">UberFancyHelloWorld</span><span class="p">(</span><span class="n">BaseHelloWorld</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Instantiating an object with shitload of parameters.  Initialization done using kwargs.  Refer to other classes like this: inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`</span>
+<span class="sd">  </span>
+<span class="sd">  :class:`~BaseHelloWorld`</span>
+<span class="sd">  </span>
+<span class="sd">  :param person:   String identifying the person</span>
+<span class="sd">  :param address:  Address</span>
+<span class="sd">  :param age:      Person&#39;s age</span>
+<span class="sd">  </span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">parameters</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;person&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span>      <span class="nb">str</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;address&quot;</span><span class="p">,</span><span class="s2">&quot;nothing&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>         <span class="nb">int</span><span class="p">]</span>
+    <span class="p">]</span>
+  
+  
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s2">&quot; : &quot;</span> <span class="c1"># auxiliary string for debugging output</span>
+    <span class="n">parameterInit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    
+  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">st</span> <span class="o">=</span><span class="s2">&quot;**************</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+      <span class="n">st</span><span class="o">+=</span><span class="n">parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span> <span class="s2">&quot;: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">st</span><span class="o">+=</span><span class="s2">&quot;**************</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">st</span>
+  
+  
+<div class="viewcode-block" id="UberFancyHelloWorld.doSomethingFancy"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.UberFancyHelloWorld.doSomethingFancy">[docs]</a>  <span class="k">def</span> <span class="nf">doSomethingFancy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">par</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is simply a method that does something fancy with a parameter</span>
+<span class="sd">    </span>
+<span class="sd">    :param par: Parameter to do something fancy with</span>
+<span class="sd">    </span>
+<span class="sd">    In fact, an empty routine.  Remember that everything goes here as well: here is a link to :ref:`the introduction &lt;about&gt;`.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="UberFancyHelloWorld.doSomethingFancyAsWell"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.UberFancyHelloWorld.doSomethingFancyAsWell">[docs]</a>  <span class="k">def</span> <span class="nf">doSomethingFancyAsWell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This method also does something fancy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div></div>
+
+
+
+    
+<div class="viewcode-block" id="test1"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.test1">[docs]</a><span class="k">def</span> <span class="nf">test1</span><span class="p">():</span>
+  <span class="sd">&quot;&quot;&quot; Test UberFancyHelloWorld</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">pre</span><span class="o">=</span><span class="n">pre_mod</span><span class="o">+</span><span class="s2">&quot;test1 :&quot;</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;test1&quot;</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;Let&#39;s test UberFancyHelloWorld&quot;</span><span class="p">)</span>
+  <span class="n">hw</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  <span class="n">hw</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="s2">&quot;40&quot;</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+    
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;Let&#39;s test FancyHelloWorld&quot;</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw</span><span class="o">=</span><span class="n">FancyHelloWorld</span><span class="p">(</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw</span><span class="o">=</span><span class="n">FancyHelloWorld</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span></div>
+  
+
+
+
+<span class="c1"># this rest is just broilerplate .. copy it to your new module ! :)</span>
+<div class="viewcode-block" id="test2"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.test2">[docs]</a><span class="k">def</span> <span class="nf">test2</span><span class="p">():</span>
+  <span class="sd">&quot;&quot;&quot; Test broilerplate</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">pre</span><span class="o">=</span><span class="n">pre_mod</span><span class="o">+</span><span class="s2">&quot;test2 :&quot;</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;test2&quot;</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;description of test 2&quot;</span><span class="p">)</span></div>
+
+    
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="kn">import</span> <span class="nn">sys</span>
+  <span class="n">pre</span><span class="o">=</span><span class="n">pre_mod</span><span class="o">+</span><span class="s2">&quot;main :&quot;</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;main: arguments: &quot;</span><span class="p">,</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;main: needs test number&quot;</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">st</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;()&quot;</span>
+    <span class="k">exec</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+  
+  
+<span class="k">if</span> <span class="p">(</span><span class="n">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">):</span>
+  <span class="n">main</span><span class="p">()</span>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Skeleton 1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2017 Sampsa Riikonen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+  </body>
+</html>

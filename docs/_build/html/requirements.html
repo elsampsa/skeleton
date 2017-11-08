@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started &mdash; Skeleton 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Skeleton 1 documentation" href="index.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="About this module" href="intro.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="About this module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Skeleton 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>So, you have red <a class="reference internal" href="intro.html#about"><span>the introduction</span></a>.</p>
+<div class="section" id="required-packages">
+<h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
+<p>Install the following packages on a debian-based distribution:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install some-package
+</pre></div>
+</div>
+<p>Start also the following system service</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo service some-service start
+</pre></div>
+</div>
+<p>Once you&#8217;ve installed this package, test the code with (use either ipython or ipython3)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython3</span>
+<span class="kn">from</span> <span class="nn">skeleton.greeters</span> <span class="kn">import</span> <span class="n">UberFancyHelloWorld</span>
+<span class="n">gr</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">gr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="code-organization">
+<h2>Code Organization<a class="headerlink" href="#code-organization" title="Permalink to this headline">¶</a></h2>
+<p>So, let&#8217;s get back to this tutorial.  This is a module that has a single submodule called &#8220;greeters&#8221; that is organized as follows:</p>
+<dl class="docutils">
+<dt>greeters</dt>
+<dd><div class="first last line-block">
+<div class="line">__init__.py</div>
+<div class="line">base.py</div>
+<div class="line">fancy.py</div>
+</div>
+</dd>
+</dl>
+<p>The idea is that &#8220;base.py&#8221; has some base class definitions that are used bu &#8220;fancy.py&#8221; to create derived classes.  __init__.py has been tweaked so that user can import with</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">skeleton.greeters</span> <span class="kn">import</span> <span class="n">UberFancyHelloWorld</span>
+</pre></div>
+</div>
+<p>instead of the cumbersome</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">skeleton.fancy.greeters</span> <span class="kn">import</span> <span class="n">UberFancyHelloWorld</span>
+</pre></div>
+</div>
+<p>(also, the api user should not be bothered with the internal inheritance, etc.)</p>
+<p>So, I suggest you open in your editor all files of the &#8220;greeters&#8221; submodule and study them a bit.</p>
+</div>
+<div class="section" id="quick-testing">
+<h2>Quick testing<a class="headerlink" href="#quick-testing" title="Permalink to this headline">¶</a></h2>
+<p>Each module file under &#8220;greeters&#8221; works also as a stand-alone test.  Go to the &#8220;greeters&#8221; directory and try (either ipython or ipython3):</p>
+<div class="highlight-python"><div class="highlight"><pre>ipython3
+%run fancy.py
+</pre></div>
+</div>
+<p>Or just (either python or python3):</p>
+<div class="highlight-python"><div class="highlight"><pre>python3 fancy.py
+</pre></div>
+</div>
+<p>This is not proper testing, though.  It&#8217;s quick&#8217;n&#8217;dirty testing during development.  Separate testing programs for systematic testing are a good idea to include in your module package.</p>
+</div>
+<div class="section" id="packaging">
+<h2>Packaging<a class="headerlink" href="#packaging" title="Permalink to this headline">¶</a></h2>
+<p>After we have made the correct &#8220;scaffolded&#8221; directory structure (<a class="reference internal" href="intro.html#about"><span>see here</span></a>), everything works like magic.  At the main &#8220;skeleton&#8221; directory, do (either python or python3)</p>
+<div class="highlight-python"><div class="highlight"><pre>python3 setup.py sdist
+</pre></div>
+</div>
+<p>Your distributable python package is now in &#8220;dist/skeleton-0.1/skeleton-0.1.tar.gz&#8221;.  You can install it with pip(3).</p>
+<p>The setup.py script automatically finds and includes python packages to the distribution package.  In &#8220;MANIFEST.in&#8221; we also tell it to include the complete &#8220;docs/&#8221; directory an auxiliary file from the &#8220;greeters&#8221; submodule</p>
+</div>
+<div class="section" id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Some other points:</dt>
+<dd><ul class="first last simple">
+<li>Check out in the source code, how I init and check a large number of parameters in the constructor</li>
+<li>It is also a good idea to add &#8220;exceptions.py&#8221; under &#8220;greeters&#8221;.  This way you can quickly see what custom exceptions must be handled.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started</a><ul>
+<li><a class="reference internal" href="#required-packages">Required packages</a></li>
+<li><a class="reference internal" href="#code-organization">Code Organization</a></li>
+<li><a class="reference internal" href="#quick-testing">Quick testing</a></li>
+<li><a class="reference internal" href="#packaging">Packaging</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">About this module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="next chapter">Examples</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/requirements.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="About this module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Skeleton 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2017 Sampsa Riikonen.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+  </body>
+</html>
