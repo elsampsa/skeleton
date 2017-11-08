@@ -156,9 +156,9 @@ Here are some possibilities:
     
     ::
     
-      pip3 install git+https://
+      pip3 install git+https://github.com/elsampsa/skeleton
     
-  
+
 
   
 
