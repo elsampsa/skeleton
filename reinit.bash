@@ -9,9 +9,14 @@ echo initializing project $name
 # rename python module directory
 mv skeleton $name
 # replace project names
-find * -exec sed -i -r "s/skeleton/$name/g" {} \;
-find * -exec sed -i -r "s/Skeleton/$name/g" {} \;
-find * -exec sed -i -r "s/your_package_name/$name/g" {} \;
+
+fs="MANIFEST.in README.md setup.py $name/* docs/*"
+for f in $fs
+do
+  find $f -exec sed -i -r "s/skeleton/$name/g" {} \;
+  find $f -exec sed -i -r "s/Skeleton/$name/g" {} \;
+  find $f -exec sed -i -r "s/your_package_name/$name/g" {} \;
+done
 # recompile documentation
 cd docs
 mkdir _static

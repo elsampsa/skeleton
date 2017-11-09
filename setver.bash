@@ -1,4 +1,5 @@
 #!/bin/bash
+name=$(basename $PWD)
 if [ $# -ne 1 ]; then
   # echo "Give version and release in quotation marks, like this:"
   # echo '"0" "1"'
@@ -12,7 +13,10 @@ echo setting version $1
 
 # exit
 
-find * -exec sed -i -r "s/version = '2.1'/g" {} \;
-find * -exec sed -i -r "s/release = '2.1'/g" {} \;
-
+fs="MANIFEST.in README.md setup.py $name/* docs/*"
+for f in $fs
+do
+  find $f -exec sed -i -r "s/version = '(.*)'/version = '$1'/g" {} \;
+  find $f -exec sed -i -r "s/release = '(.*)'/version = '$1'/g" {} \;
+done
 

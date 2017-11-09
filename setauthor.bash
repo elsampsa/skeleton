@@ -1,4 +1,5 @@
 #!/bin/bash
+name=$(basename $PWD)
 if [ $# -ne 1 ]; then
   echo "Give a author name inside quotation marks"
   exit
@@ -10,7 +11,11 @@ read -n1 -r -p "Press q to quit, space to continue..." key
 
 if [ "$key" = '' ]; then
   echo "running sed"
-  find * -exec sed -i -r "s/Janne Jannunen/$1/g" {} \;
+  fs="MANIFEST.in README.md setup.py $name/* docs/*"
+  for f in $fs
+  do
+    find $f -exec sed -i -r "s/Sampsa Riikonen/$1/g" {} \;
+  done
   
 else
   echo
