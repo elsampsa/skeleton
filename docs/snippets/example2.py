@@ -1,5 +1,5 @@
-from skeleton.greeters import UberFancyHelloWorld
+from skeleton.greeters import FancyHelloWorld
 # let's create an instance
-gr=UberFancyHelloWorld(person="Sampsa",age=40)
+gr=FancyHelloWorld(person="Sampsa")
 # print the result
 print(gr) 
