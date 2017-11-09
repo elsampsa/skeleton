@@ -48,7 +48,7 @@
             
   <h1>Source code for skeleton.greeters.fancy</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">fancy.py : fancier greeter classes</span>
+<span class="sd">fancy.py : fancier greeter classes.  This demonstrates how to build APIs that check input parameters.</span>
 
 <span class="sd">* Copyright : 2017 Sampsa Riikonen</span>
 <span class="sd">* Authors  : Sampsa Riikonen</span>
@@ -63,7 +63,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="n">pre_mod</span> <span class="o">=</span> <span class="s2">&quot;skeleton.greeters.fancy : &quot;</span> <span class="c1"># a string for aux debuggin purposes</span>
 
-<span class="kn">from</span> <span class="nn">skeleton.tools</span> <span class="kn">import</span> <span class="n">parameterCheck</span><span class="p">,</span> <span class="n">parameterInit</span>
+<span class="kn">from</span> <span class="nn">skeleton.tools</span> <span class="kn">import</span> <span class="n">objectCheck</span><span class="p">,</span> <span class="n">parameterInitCheck</span><span class="p">,</span> <span class="n">noCheck</span>
 <span class="kn">from</span> <span class="nn">skeleton.greeters.base</span> <span class="kn">import</span> <span class="n">BaseHelloWorld</span> <span class="c1"># it&#39;s good to use the absolute paths here (API user could use simply &quot;from skeleton.greeters import BaseHelloWorld&quot;)</span>
 
 
@@ -71,22 +71,18 @@
 <div class="viewcode-block" id="FancyHelloWorld"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld">[docs]</a><span class="k">class</span> <span class="nc">FancyHelloWorld</span><span class="p">(</span><span class="n">BaseHelloWorld</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Like BaseHelloWorld, but prints a nice banner! :)</span>
 <span class="sd">  </span>
-<span class="sd">  :param person: String identifying the person</span>
+<span class="sd">  Takes just a single argument (inherited from the base class)</span>
+<span class="sd">  </span>
+<span class="sd">  :param person: person&#39;s name: string, mandatory</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="n">parameters</span><span class="o">=</span><span class="p">[</span>
-    <span class="p">[</span><span class="s2">&quot;person&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>  <span class="c1"># parameter key, type</span>
-    <span class="p">]</span>
-  
-  
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">person</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="c1"># if you need to call the superclass constructor:</span>
-    <span class="c1"># super().__init__(person) # python3</span>
-    <span class="c1"># super(FancyHelloWorld, self).__init__(person) # python2 compatible</span>
+    <span class="c1"># super().__init__(**kwargs) # python3</span>
+    <span class="c1"># super(FancyHelloWorld, self).__init__(**kwargs) # python2 compatible</span>
     
     <span class="bp">self</span><span class="o">.</span><span class="n">pre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s2">&quot; : &quot;</span> <span class="c1"># auxiliary string for debugging output</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">person</span><span class="o">=</span><span class="n">person</span>
+    <span class="n">parameterInitCheck</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter_defs</span><span class="p">,</span><span class="n">kwargs</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># check kwargs agains parameter_defs, attach ok&#39;d parameters to this object as attributes</span>
     <span class="c1"># print(self.pre,&quot;__init__&quot;,&quot;leaving constructor&quot;) # auxiliary debug string</span>
-    <span class="n">parameterCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         
     
   <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -97,93 +93,244 @@
 
 
 
-<div class="viewcode-block" id="UberFancyHelloWorld"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.UberFancyHelloWorld">[docs]</a><span class="k">class</span> <span class="nc">UberFancyHelloWorld</span><span class="p">(</span><span class="n">BaseHelloWorld</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Instantiating an object with shitload of parameters.  Initialization done using kwargs.  Refer to other classes like this: inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`</span>
+<div class="viewcode-block" id="FancyHelloWorld2"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld2">[docs]</a><span class="k">class</span> <span class="nc">FancyHelloWorld2</span><span class="p">(</span><span class="n">BaseHelloWorld</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`</span>
 <span class="sd">  </span>
-<span class="sd">  :class:`~BaseHelloWorld`</span>
+<span class="sd">  API checks for input types</span>
 <span class="sd">  </span>
-<span class="sd">  :param person:   String identifying the person</span>
-<span class="sd">  :param address:  Address</span>
-<span class="sd">  :param age:      Person&#39;s age</span>
+<span class="sd">  :param person: person&#39;s name : string, mandatory</span>
+<span class="sd">  :param address: person&#39;s name : string, optional, default value = &quot;nothing&quot;</span>
+<span class="sd">  :param age: person&#39;s age : integer, optional, default value = 0</span>
 <span class="sd">  </span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="n">parameters</span><span class="o">=</span><span class="p">[</span>
-    <span class="p">[</span><span class="s2">&quot;person&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span>      <span class="nb">str</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">&quot;address&quot;</span><span class="p">,</span><span class="s2">&quot;nothing&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>         <span class="nb">int</span><span class="p">]</span>
-    <span class="p">]</span>
+  <span class="n">parameter_defs</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;person&quot;</span>   <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                  <span class="c1"># :param person: person&#39;s name : string, mandatory</span>
+    <span class="s2">&quot;address&quot;</span>  <span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="s2">&quot;nothing&quot;</span><span class="p">),</span>      <span class="c1"># :param address: person&#39;s name : string, optional, default value = &quot;nothing&quot;</span>
+    <span class="s2">&quot;age&quot;</span>      <span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>               <span class="c1"># :param age: person&#39;s age : integer, optional, default value = 0</span>
+    <span class="p">}</span>
   
   
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">pre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s2">&quot; : &quot;</span> <span class="c1"># auxiliary string for debugging output</span>
-    <span class="n">parameterInit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">parameterInitCheck</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter_defs</span><span class="p">,</span><span class="n">kwargs</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># check for input parameters</span>
     
     
-  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># an example how to print all defined attributes</span>
     <span class="n">st</span> <span class="o">=</span><span class="s2">&quot;**************</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
-      <span class="n">st</span><span class="o">+=</span><span class="n">parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span> <span class="s2">&quot;: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parameter</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_defs</span><span class="p">:</span>
+      <span class="n">st</span><span class="o">+=</span><span class="n">parameter</span><span class="o">+</span> <span class="s2">&quot;: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parameter</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="n">st</span><span class="o">+=</span><span class="s2">&quot;**************</span><span class="se">\n</span><span class="s2">&quot;</span>
     <span class="k">return</span> <span class="n">st</span>
   
   
-<div class="viewcode-block" id="UberFancyHelloWorld.doSomethingFancy"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.UberFancyHelloWorld.doSomethingFancy">[docs]</a>  <span class="k">def</span> <span class="nf">doSomethingFancy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="FancyHelloWorld2.doSomethingFancy"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld2.doSomethingFancy">[docs]</a>  <span class="k">def</span> <span class="nf">doSomethingFancy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is simply a method that does something fancy with a parameter</span>
+<span class="sd">    </span>
+<span class="sd">    Parameter could be checked using parameterInitCheck, like in the constructor</span>
 <span class="sd">    </span>
 <span class="sd">    :param par: Parameter to do something fancy with</span>
 <span class="sd">    </span>
-<span class="sd">    In fact, an empty routine.  Remember that everything goes here as well: here is a link to :ref:`the introduction &lt;about&gt;`.</span>
+<span class="sd">    As for documentation, everything goes here as well: here is a link to :ref:`the introduction &lt;about&gt;`.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="UberFancyHelloWorld.doSomethingFancyAsWell"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.UberFancyHelloWorld.doSomethingFancyAsWell">[docs]</a>  <span class="k">def</span> <span class="nf">doSomethingFancyAsWell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FancyHelloWorld2.doSomethingFancyAsWell"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld2.doSomethingFancyAsWell">[docs]</a>  <span class="k">def</span> <span class="nf">doSomethingFancyAsWell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This method also does something fancy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div></div>
 
 
 
+<div class="viewcode-block" id="FancyHelloWorld3"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld3">[docs]</a><span class="k">class</span> <span class="nc">FancyHelloWorld3</span><span class="p">(</span><span class="n">FancyHelloWorld</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`</span>
+<span class="sd">  </span>
+<span class="sd">  API checks for input types: here we have a complex object type as an input parameter</span>
+<span class="sd">  </span>
+<span class="sd">  :param person: person&#39;s name : string, mandatory</span>
+<span class="sd">  :param address: person&#39;s name : string, optional, default value = &quot;nothing&quot;</span>
+<span class="sd">  :param age: person&#39;s age : integer, optional, default value = 0</span>
+<span class="sd">  :param subgreeter: an object of the type :class:`~skeleton.greeters.fancy.FancyHelloWorld`</span>
+<span class="sd">  </span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">parameter_defs</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;person&quot;</span>     <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>             <span class="c1"># :param person: person&#39;s name : string, mandatory</span>
+    <span class="s2">&quot;address&quot;</span>    <span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="s2">&quot;nothing&quot;</span><span class="p">),</span> <span class="c1"># :param address: person&#39;s name : string, optional, default value = &quot;nothing&quot;</span>
+    <span class="s2">&quot;age&quot;</span>        <span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>         <span class="c1"># :param age: person&#39;s age : integer, optional, default value = 0</span>
+    <span class="s2">&quot;subgreeter&quot;</span> <span class="p">:</span> <span class="n">FancyHelloWorld</span>  <span class="c1"># :param subgreeter: an object of the type :class:`~skeleton.greeters.fancy.FancyHelloWorld`</span>
+    <span class="p">}</span>
+  
+  
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s2">&quot; : &quot;</span> <span class="c1"># auxiliary string for debugging output</span>
+    <span class="n">parameterInitCheck</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter_defs</span><span class="p">,</span><span class="n">kwargs</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># check for input parameters</span></div>
+
+
+
+<div class="viewcode-block" id="FancyHelloWorld4"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld4">[docs]</a><span class="k">class</span> <span class="nc">FancyHelloWorld4</span><span class="p">(</span><span class="n">FancyHelloWorld</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`</span>
+<span class="sd">  </span>
+<span class="sd">  API checks for input types: one of the input parameters is undefined .. we simply check that is has certain attributes.  This would be a &quot;tedious API&quot;. .. usefull if the input class is not yet fully fixed</span>
+<span class="sd">  </span>
+<span class="sd">  :param person: person&#39;s name : string, mandatory</span>
+<span class="sd">  :param address: person&#39;s name : string, optional, default value = &quot;nothing&quot;</span>
+<span class="sd">  :param age: person&#39;s age : integer, optional, default value = 0</span>
+<span class="sd">  :param vague: an object of unspecified type.  Custom checked with AttributeCheck_vague (see source code for more details)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  
+<div class="viewcode-block" id="FancyHelloWorld4.AttributeCheck_vague"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld4.AttributeCheck_vague">[docs]</a>  <span class="k">def</span> <span class="nf">AttributeCheck_vague</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Checks that the object has</span>
+<span class="sd">    </span>
+<span class="sd">    :param person: (string)</span>
+<span class="sd">    :param age: (int)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">objectCheck</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span>
+      <span class="p">{</span> <span class="c1"># check that object has these parameters</span>
+      <span class="s2">&quot;person&quot;</span>  <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+      <span class="s2">&quot;age&quot;</span>     <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+      <span class="p">})</span></div>
+      <span class="c1"># we could do any sort of custom checks here.  Remember to return False or True</span>
+      
+  
+  <span class="n">parameter_defs</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;person&quot;</span>     <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                                    <span class="c1"># :param person: person&#39;s name : string, mandatory</span>
+    <span class="s2">&quot;address&quot;</span>    <span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="s2">&quot;nothing&quot;</span><span class="p">),</span>                        <span class="c1"># :param address: person&#39;s name : string, optional, default value = &quot;nothing&quot;</span>
+    <span class="s2">&quot;age&quot;</span>        <span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>                                <span class="c1"># :param age: person&#39;s age : integer, optional, default value = 0</span>
+    <span class="s2">&quot;vague&quot;</span>      <span class="p">:</span> <span class="n">AttributeCheck_vague</span>                    <span class="c1"># :param vague: an object of unspecified type.  Custom checked wit AttributeCheck_vague (see source code for more details)</span>
+    <span class="p">}</span>
+  
+  
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s2">&quot; : &quot;</span> <span class="c1"># auxiliary string for debugging output</span>
+    <span class="n">parameterInitCheck</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter_defs</span><span class="p">,</span><span class="n">kwargs</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># check for input parameters</span></div>
+
+
+
+<div class="viewcode-block" id="FancyHelloWorld5"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld5">[docs]</a><span class="k">class</span> <span class="nc">FancyHelloWorld5</span><span class="p">(</span><span class="n">FancyHelloWorld</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`</span>
+<span class="sd">  </span>
+<span class="sd">  API checks for input types: one of the input parameters is left completely undefined .. This is an API that has been left intentionally broken</span>
+<span class="sd">  </span>
+<span class="sd">  :param person: person&#39;s name : string, mandatory</span>
+<span class="sd">  :param address: person&#39;s name : string, optional, default value = &quot;nothing&quot;</span>
+<span class="sd">  :param age: person&#39;s age : integer, optional, default value = 0</span>
+<span class="sd">  :param vague: an object of unspecified type. Congrats, your API is broken!  :)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  
+  <span class="n">parameter_defs</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;person&quot;</span>     <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                                    <span class="c1"># :param person: person&#39;s name : string, mandatory</span>
+    <span class="s2">&quot;address&quot;</span>    <span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="s2">&quot;nothing&quot;</span><span class="p">),</span>                        <span class="c1"># :param address: person&#39;s name : string, optional, default value = &quot;nothing&quot;</span>
+    <span class="s2">&quot;age&quot;</span>        <span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>                                <span class="c1"># :param age: person&#39;s age : integer, optional, default value = 0</span>
+    <span class="s2">&quot;vague&quot;</span>      <span class="p">:</span> <span class="n">noCheck</span>                                 <span class="c1"># :param vague: an object of unspecified type. The &quot;checking&quot; is done with a function that returns always True (=everything goes)</span>
+    <span class="p">}</span>
+  
+  
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pre</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s2">&quot; : &quot;</span> <span class="c1"># auxiliary string for debugging output</span>
+    <span class="n">parameterInitCheck</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter_defs</span><span class="p">,</span><span class="n">kwargs</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># check for input parameters</span></div>
+
+
+
     
 <div class="viewcode-block" id="test1"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.test1">[docs]</a><span class="k">def</span> <span class="nf">test1</span><span class="p">():</span>
-  <span class="sd">&quot;&quot;&quot; Test UberFancyHelloWorld</span>
+  <span class="sd">&quot;&quot;&quot; Test FancyHelloWorld2</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="n">pre</span><span class="o">=</span><span class="n">pre_mod</span><span class="o">+</span><span class="s2">&quot;test1 :&quot;</span>
+  
   <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;test1&quot;</span><span class="p">)</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;Let&#39;s test UberFancyHelloWorld&quot;</span><span class="p">)</span>
-  <span class="n">hw</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
-  <span class="n">hw</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;Let&#39;s test FancyHelloWorlds&quot;</span><span class="p">)</span>
+  
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;FancyHelloWorld&quot;</span><span class="p">)</span>
   <span class="k">try</span><span class="p">:</span>
-    <span class="n">hw</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+    <span class="n">hw</span><span class="o">=</span><span class="n">FancyHelloWorld</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
   <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
   <span class="k">try</span><span class="p">:</span>
-    <span class="n">hw</span><span class="o">=</span><span class="n">UberFancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="s2">&quot;40&quot;</span><span class="p">)</span>
+    <span class="n">hw</span><span class="o">=</span><span class="n">FancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="s2">&quot;40&quot;</span><span class="p">)</span>
   <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw</span><span class="o">=</span><span class="n">FancyHelloWorld</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  
     
-  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;Let&#39;s test FancyHelloWorld&quot;</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;FancyHelloWorld2&quot;</span><span class="p">)</span>
   <span class="k">try</span><span class="p">:</span>
-    <span class="n">hw</span><span class="o">=</span><span class="n">FancyHelloWorld</span><span class="p">(</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">)</span>
+    <span class="n">hw2</span><span class="o">=</span><span class="n">FancyHelloWorld2</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
   <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
   <span class="k">try</span><span class="p">:</span>
-    <span class="n">hw</span><span class="o">=</span><span class="n">FancyHelloWorld</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">hw2</span><span class="o">=</span><span class="n">FancyHelloWorld2</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="s2">&quot;40&quot;</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw2</span><span class="o">=</span><span class="n">FancyHelloWorld2</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;Helsinki&quot;</span><span class="p">,</span><span class="n">age</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  
+  
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;FancyHelloWorld3&quot;</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw3</span><span class="o">=</span><span class="n">FancyHelloWorld3</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">subgreeter</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw3</span><span class="o">=</span><span class="n">FancyHelloWorld3</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;Sampsa&quot;</span><span class="p">,</span><span class="n">subgreeter</span><span class="o">=</span><span class="n">hw</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  
+  
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;FancyHelloWorld4&quot;</span><span class="p">)</span>
+  <span class="k">class</span> <span class="nc">NameSpace</span><span class="p">:</span> <span class="c1"># test object</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;sampsa&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">age</span>   <span class="o">=</span><span class="s2">&quot;40&quot;</span> <span class="c1"># wrong attribute</span>
+  
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw4</span><span class="o">=</span><span class="n">FancyHelloWorld4</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;me&quot;</span><span class="p">,</span><span class="n">vague</span><span class="o">=</span><span class="n">NameSpace</span><span class="p">())</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  
+  <span class="k">class</span> <span class="nc">NameSpace</span><span class="p">:</span> <span class="c1"># test object</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;sampsa&quot;</span> <span class="c1"># correct attributes</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">age</span>   <span class="o">=</span><span class="mi">40</span>
+  
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw4</span><span class="o">=</span><span class="n">FancyHelloWorld4</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;me&quot;</span><span class="p">,</span><span class="n">vague</span><span class="o">=</span><span class="n">NameSpace</span><span class="p">())</span>
+  <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span>
+  
+  <span class="k">print</span><span class="p">(</span><span class="n">pre</span><span class="p">,</span><span class="s2">&quot;FancyHelloWorld5&quot;</span><span class="p">)</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">hw5</span><span class="o">=</span><span class="n">FancyHelloWorld5</span><span class="p">(</span><span class="n">person</span><span class="o">=</span><span class="s2">&quot;me&quot;</span><span class="p">,</span><span class="n">vague</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
   <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">hw</span><span class="p">)</span></div>
   
-
 
 
 <span class="c1"># this rest is just broilerplate .. copy it to your new module ! :)</span>

@@ -13,19 +13,27 @@ Skeleton example library is free software: you can redistribute it and/or modify
 import sys
 pre_mod = "skeleton.greeters.base : " # a string for aux debugging
 
+from skeleton.tools import parameterInitCheck
 
 
 # If I remember correctly, in python3 all classes are automatically children of object
 class BaseHelloWorld(object):
   """ A Greeter base class
   
-  :param person: A person's name
+  :param person: person's name: string, mandatory
   """
   
-  def __init__(self, person):
+  parameter_defs={
+    "person" : str  # a parameter "person" of the type string is required
+    }
+  
+  
+  def __init__(self, **kwargs):
     self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
-    self.person=person
-    # print(self.pre,"__init__","leaving constructor") # auxiliary debug string
+    # print(self.pre,"__init__ : parameter_defs : ",self.parameter_defs)
+    parameterInitCheck(self.parameter_defs,kwargs,self) # check kwargs agains parameter_defs, attach ok'd parameters to this object as attributes
+    # .. now we can access self.person
+    # print(self.pre,"__init__","leaving constructor") # an auxiliary debug string
     
     
   def __str__(self):
@@ -33,15 +41,39 @@ class BaseHelloWorld(object):
     return st
     
     
-    
 def test1():
-  """Empty test
+  """Test BaseHelloWorld
   """
   pre=pre_mod+"test1 :"
   print(pre,"test1")
   print(pre,"description of test 1")
-
-
+  
+  try:
+    base=BaseHelloWorld() # no person defined
+  except AttributeError as e:
+    print(e)
+  else:
+    print(base)
+  try:
+    base=BaseHelloWorld(person=1) # wrong type for person
+  except AttributeError as e:
+    print(e)
+  else:
+    print(base)
+  try:
+    base=BaseHelloWorld(person="sampsa", age=10) # unknown argument age
+  except AttributeError as e:
+    print(e)
+  else:
+    print(base)
+  try:
+    base=BaseHelloWorld(person="sampsa") # success
+  except AttributeError as e:
+    print(e)
+  else:
+    print(base)
+  
+  
 def test2():
   """Empty test
   """

@@ -10,8 +10,9 @@ skeleton.greeters.fancy
    .. autosummary::
    
       main
-      parameterCheck
-      parameterInit
+      noCheck
+      objectCheck
+      parameterInitCheck
       test1
       test2
    
@@ -25,7 +26,10 @@ skeleton.greeters.fancy
    
       BaseHelloWorld
       FancyHelloWorld
-      UberFancyHelloWorld
+      FancyHelloWorld2
+      FancyHelloWorld3
+      FancyHelloWorld4
+      FancyHelloWorld5
    
    
 

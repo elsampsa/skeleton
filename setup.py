@@ -1,9 +1,12 @@
 from setuptools import setup, Extension, find_packages
 
+# The short X.Y version
+version = '0.1' # WARNING: modified by setver.bash
+
 # https://setuptools.readthedocs.io/en/latest/setuptools.html#basic-use
 setup(
   name = "skeleton",
-  version = "0.1",
+  version = version,
   install_requires = ['docutils>=0.3'],
 
   packages = find_packages(),  

@@ -56,7 +56,7 @@
             
   <div class="section" id="module-skeleton.greeters.fancy">
 <span id="skeleton-greeters-fancy"></span><h1>skeleton.greeters.fancy<a class="headerlink" href="#module-skeleton.greeters.fancy" title="Permalink to this headline">¶</a></h1>
-<p>fancy.py : fancier greeter classes</p>
+<p>fancy.py : fancier greeter classes.  This demonstrates how to build APIs that check input parameters.</p>
 <ul class="simple">
 <li>Copyright : 2017 Sampsa Riikonen</li>
 <li>Authors  : Sampsa Riikonen</li>
@@ -75,16 +75,19 @@
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">main</span></code>()</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">parameterCheck</span></code>(obj)</td>
-<td>Parameter checker for a class that has the following members:</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">noCheck</span></code>(obj)</td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">parameterInit</span></code>(obj,&nbsp;kwargs)</td>
-<td>Parameter checker/initiator</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">objectCheck</span></code>(obj,&nbsp;definitions)</td>
+<td>Checks that object has certain attributes, according to definitions</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#skeleton.greeters.fancy.test1" title="skeleton.greeters.fancy.test1"><code class="xref py py-obj docutils literal"><span class="pre">test1</span></code></a>()</td>
-<td>Test UberFancyHelloWorld</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">parameterInitCheck</span></code>(definitions,&nbsp;parameters,&nbsp;obj)</td>
+<td>Checks that parameters are consistent with a definition</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#skeleton.greeters.fancy.test2" title="skeleton.greeters.fancy.test2"><code class="xref py py-obj docutils literal"><span class="pre">test2</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#skeleton.greeters.fancy.test1" title="skeleton.greeters.fancy.test1"><code class="xref py py-obj docutils literal"><span class="pre">test1</span></code></a>()</td>
+<td>Test FancyHelloWorld2</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#skeleton.greeters.fancy.test2" title="skeleton.greeters.fancy.test2"><code class="xref py py-obj docutils literal"><span class="pre">test2</span></code></a>()</td>
 <td>Test broilerplate</td>
 </tr>
 </tbody>
@@ -96,53 +99,64 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseHelloWorld</span></code>(person)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">BaseHelloWorld</span></code>(**kwargs)</td>
 <td>A Greeter base class</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#skeleton.greeters.fancy.FancyHelloWorld" title="skeleton.greeters.fancy.FancyHelloWorld"><code class="xref py py-obj docutils literal"><span class="pre">FancyHelloWorld</span></code></a>(person)</td>
+<tr class="row-even"><td><a class="reference internal" href="#skeleton.greeters.fancy.FancyHelloWorld" title="skeleton.greeters.fancy.FancyHelloWorld"><code class="xref py py-obj docutils literal"><span class="pre">FancyHelloWorld</span></code></a>(**kwargs)</td>
 <td>Like BaseHelloWorld, but prints a nice banner! :)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#skeleton.greeters.fancy.UberFancyHelloWorld" title="skeleton.greeters.fancy.UberFancyHelloWorld"><code class="xref py py-obj docutils literal"><span class="pre">UberFancyHelloWorld</span></code></a>(**kwargs)</td>
-<td>Instantiating an object with shitload of parameters.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#skeleton.greeters.fancy.FancyHelloWorld2" title="skeleton.greeters.fancy.FancyHelloWorld2"><code class="xref py py-obj docutils literal"><span class="pre">FancyHelloWorld2</span></code></a>(**kwargs)</td>
+<td>An example of how to make an API.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#skeleton.greeters.fancy.FancyHelloWorld3" title="skeleton.greeters.fancy.FancyHelloWorld3"><code class="xref py py-obj docutils literal"><span class="pre">FancyHelloWorld3</span></code></a>(**kwargs)</td>
+<td>An example of how to make an API.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#skeleton.greeters.fancy.FancyHelloWorld4" title="skeleton.greeters.fancy.FancyHelloWorld4"><code class="xref py py-obj docutils literal"><span class="pre">FancyHelloWorld4</span></code></a>(**kwargs)</td>
+<td>An example of how to make an API.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#skeleton.greeters.fancy.FancyHelloWorld5" title="skeleton.greeters.fancy.FancyHelloWorld5"><code class="xref py py-obj docutils literal"><span class="pre">FancyHelloWorld5</span></code></a>(**kwargs)</td>
+<td>An example of how to make an API.</td>
 </tr>
 </tbody>
 </table>
 <dl class="class">
 <dt id="skeleton.greeters.fancy.FancyHelloWorld">
-<em class="property">class </em><code class="descclassname">skeleton.greeters.fancy.</code><code class="descname">FancyHelloWorld</code><span class="sig-paren">(</span><em>person</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skeleton.greeters.fancy.</code><code class="descname">FancyHelloWorld</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld" title="Permalink to this definition">¶</a></dt>
 <dd><p>Like BaseHelloWorld, but prints a nice banner! :)</p>
+<p>Takes just a single argument (inherited from the base class)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>person</strong> &#8211; String identifying the person</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>person</strong> &#8211; person&#8217;s name: string, mandatory</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="class">
-<dt id="skeleton.greeters.fancy.UberFancyHelloWorld">
-<em class="property">class </em><code class="descclassname">skeleton.greeters.fancy.</code><code class="descname">UberFancyHelloWorld</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#UberFancyHelloWorld"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.UberFancyHelloWorld" title="Permalink to this definition">¶</a></dt>
-<dd><p>Instantiating an object with shitload of parameters.  Initialization done using kwargs.  Refer to other classes like this: inherited from <a class="reference internal" href="skeleton.greeters.base.html#skeleton.greeters.base.BaseHelloWorld" title="skeleton.greeters.base.BaseHelloWorld"><code class="xref py py-class docutils literal"><span class="pre">BaseHelloWorld</span></code></a></p>
-<p><code class="xref py py-class docutils literal"><span class="pre">BaseHelloWorld</span></code></p>
+<dt id="skeleton.greeters.fancy.FancyHelloWorld2">
+<em class="property">class </em><code class="descclassname">skeleton.greeters.fancy.</code><code class="descname">FancyHelloWorld2</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld2" title="Permalink to this definition">¶</a></dt>
+<dd><p>An example of how to make an API.  Initialization done using kwargs.  Inherited from <a class="reference internal" href="skeleton.greeters.base.html#skeleton.greeters.base.BaseHelloWorld" title="skeleton.greeters.base.BaseHelloWorld"><code class="xref py py-class docutils literal"><span class="pre">BaseHelloWorld</span></code></a></p>
+<p>API checks for input types</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>person</strong> &#8211; String identifying the person</li>
-<li><strong>address</strong> &#8211; Address</li>
-<li><strong>age</strong> &#8211; Person&#8217;s age</li>
+<li><strong>person</strong> &#8211; person&#8217;s name : string, mandatory</li>
+<li><strong>address</strong> &#8211; person&#8217;s name : string, optional, default value = &#8220;nothing&#8221;</li>
+<li><strong>age</strong> &#8211; person&#8217;s age : integer, optional, default value = 0</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="skeleton.greeters.fancy.UberFancyHelloWorld.doSomethingFancy">
-<code class="descname">doSomethingFancy</code><span class="sig-paren">(</span><em>par</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#UberFancyHelloWorld.doSomethingFancy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.UberFancyHelloWorld.doSomethingFancy" title="Permalink to this definition">¶</a></dt>
+<dt id="skeleton.greeters.fancy.FancyHelloWorld2.doSomethingFancy">
+<code class="descname">doSomethingFancy</code><span class="sig-paren">(</span><em>par</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld2.doSomethingFancy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld2.doSomethingFancy" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is simply a method that does something fancy with a parameter</p>
+<p>Parameter could be checked using parameterInitCheck, like in the constructor</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -151,21 +165,102 @@
 </tr>
 </tbody>
 </table>
-<p>In fact, an empty routine.  Remember that everything goes here as well: here is a link to <a class="reference internal" href="../intro.html#about"><span>the introduction</span></a>.</p>
+<p>As for documentation, everything goes here as well: here is a link to <a class="reference internal" href="../tutorial.html#about"><span>the introduction</span></a>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="skeleton.greeters.fancy.UberFancyHelloWorld.doSomethingFancyAsWell">
-<code class="descname">doSomethingFancyAsWell</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#UberFancyHelloWorld.doSomethingFancyAsWell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.UberFancyHelloWorld.doSomethingFancyAsWell" title="Permalink to this definition">¶</a></dt>
+<dt id="skeleton.greeters.fancy.FancyHelloWorld2.doSomethingFancyAsWell">
+<code class="descname">doSomethingFancyAsWell</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld2.doSomethingFancyAsWell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld2.doSomethingFancyAsWell" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method also does something fancy</p>
 </dd></dl>
 
 </dd></dl>
 
+<dl class="class">
+<dt id="skeleton.greeters.fancy.FancyHelloWorld3">
+<em class="property">class </em><code class="descclassname">skeleton.greeters.fancy.</code><code class="descname">FancyHelloWorld3</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld3" title="Permalink to this definition">¶</a></dt>
+<dd><p>An example of how to make an API.  Initialization done using kwargs.  Inherited from <a class="reference internal" href="skeleton.greeters.base.html#skeleton.greeters.base.BaseHelloWorld" title="skeleton.greeters.base.BaseHelloWorld"><code class="xref py py-class docutils literal"><span class="pre">BaseHelloWorld</span></code></a></p>
+<p>API checks for input types: here we have a complex object type as an input parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>person</strong> &#8211; person&#8217;s name : string, mandatory</li>
+<li><strong>address</strong> &#8211; person&#8217;s name : string, optional, default value = &#8220;nothing&#8221;</li>
+<li><strong>age</strong> &#8211; person&#8217;s age : integer, optional, default value = 0</li>
+<li><strong>subgreeter</strong> &#8211; an object of the type <a class="reference internal" href="#skeleton.greeters.fancy.FancyHelloWorld" title="skeleton.greeters.fancy.FancyHelloWorld"><code class="xref py py-class docutils literal"><span class="pre">FancyHelloWorld</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="skeleton.greeters.fancy.FancyHelloWorld4">
+<em class="property">class </em><code class="descclassname">skeleton.greeters.fancy.</code><code class="descname">FancyHelloWorld4</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld4" title="Permalink to this definition">¶</a></dt>
+<dd><p>An example of how to make an API.  Initialization done using kwargs.  Inherited from <a class="reference internal" href="skeleton.greeters.base.html#skeleton.greeters.base.BaseHelloWorld" title="skeleton.greeters.base.BaseHelloWorld"><code class="xref py py-class docutils literal"><span class="pre">BaseHelloWorld</span></code></a></p>
+<p>API checks for input types: one of the input parameters is undefined .. we simply check that is has certain attributes.  This would be a &#8220;tedious API&#8221;. .. usefull if the input class is not yet fully fixed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>person</strong> &#8211; person&#8217;s name : string, mandatory</li>
+<li><strong>address</strong> &#8211; person&#8217;s name : string, optional, default value = &#8220;nothing&#8221;</li>
+<li><strong>age</strong> &#8211; person&#8217;s age : integer, optional, default value = 0</li>
+<li><strong>vague</strong> &#8211; an object of unspecified type.  Custom checked with AttributeCheck_vague (see source code for more details)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="skeleton.greeters.fancy.FancyHelloWorld4.AttributeCheck_vague">
+<code class="descname">AttributeCheck_vague</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld4.AttributeCheck_vague"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld4.AttributeCheck_vague" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks that the object has</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>person</strong> &#8211; (string)</li>
+<li><strong>age</strong> &#8211; (int)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skeleton.greeters.fancy.FancyHelloWorld5">
+<em class="property">class </em><code class="descclassname">skeleton.greeters.fancy.</code><code class="descname">FancyHelloWorld5</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#FancyHelloWorld5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.FancyHelloWorld5" title="Permalink to this definition">¶</a></dt>
+<dd><p>An example of how to make an API.  Initialization done using kwargs.  Inherited from <a class="reference internal" href="skeleton.greeters.base.html#skeleton.greeters.base.BaseHelloWorld" title="skeleton.greeters.base.BaseHelloWorld"><code class="xref py py-class docutils literal"><span class="pre">BaseHelloWorld</span></code></a></p>
+<p>API checks for input types: one of the input parameters is left completely undefined .. This is an API that has been left intentionally broken</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>person</strong> &#8211; person&#8217;s name : string, mandatory</li>
+<li><strong>address</strong> &#8211; person&#8217;s name : string, optional, default value = &#8220;nothing&#8221;</li>
+<li><strong>age</strong> &#8211; person&#8217;s age : integer, optional, default value = 0</li>
+<li><strong>vague</strong> &#8211; an object of unspecified type. Congrats, your API is broken!  :)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="function">
 <dt id="skeleton.greeters.fancy.test1">
 <code class="descclassname">skeleton.greeters.fancy.</code><code class="descname">test1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skeleton/greeters/fancy.html#test1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skeleton.greeters.fancy.test1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test UberFancyHelloWorld</p>
+<dd><p>Test FancyHelloWorld2</p>
 </dd></dl>
 
 <dl class="function">

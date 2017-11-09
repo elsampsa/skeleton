@@ -10,6 +10,7 @@ skeleton.greeters.base
    .. autosummary::
    
       main
+      parameterInitCheck
       test1
       test2
    

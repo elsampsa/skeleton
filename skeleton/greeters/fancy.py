@@ -1,5 +1,5 @@
 """
-fancy.py : fancier greeter classes
+fancy.py : fancier greeter classes.  This demonstrates how to build APIs that check input parameters.
 
 * Copyright : 2017 Sampsa Riikonen
 * Authors  : Sampsa Riikonen
@@ -14,7 +14,7 @@ Skeleton example library is free software: you can redistribute it and/or modify
 import sys
 pre_mod = "skeleton.greeters.fancy : " # a string for aux debuggin purposes
 
-from skeleton.tools import parameterCheck, parameterInit
+from skeleton.tools import objectCheck, parameterInitCheck, noCheck
 from skeleton.greeters.base import BaseHelloWorld # it's good to use the absolute paths here (API user could use simply "from skeleton.greeters import BaseHelloWorld")
 
 
@@ -22,22 +22,18 @@ from skeleton.greeters.base import BaseHelloWorld # it's good to use the absolut
 class FancyHelloWorld(BaseHelloWorld):
   """Like BaseHelloWorld, but prints a nice banner! :)
   
-  :param person: String identifying the person
+  Takes just a single argument (inherited from the base class)
+  
+  :param person: person's name: string, mandatory
   """
-  parameters=[
-    ["person", str],  # parameter key, type
-    ]
-  
-  
-  def __init__(self, person):
+  def __init__(self, **kwargs):
     # if you need to call the superclass constructor:
-    # super().__init__(person) # python3
-    # super(FancyHelloWorld, self).__init__(person) # python2 compatible
+    # super().__init__(**kwargs) # python3
+    # super(FancyHelloWorld, self).__init__(**kwargs) # python2 compatible
     
     self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
-    self.person=person
+    parameterInitCheck(self.parameter_defs,kwargs,self) # check kwargs agains parameter_defs, attach ok'd parameters to this object as attributes
     # print(self.pre,"__init__","leaving constructor") # auxiliary debug string
-    parameterCheck(self)
         
     
   def __str__(self):
@@ -48,32 +44,32 @@ class FancyHelloWorld(BaseHelloWorld):
 
 
 
-class UberFancyHelloWorld(BaseHelloWorld):
-  """Instantiating an object with shitload of parameters.  Initialization done using kwargs.  Refer to other classes like this: inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`
+class FancyHelloWorld2(BaseHelloWorld):
+  """An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`
   
-  :class:`~BaseHelloWorld`
+  API checks for input types
   
-  :param person:   String identifying the person
-  :param address:  Address
-  :param age:      Person's age
+  :param person: person's name : string, mandatory
+  :param address: person's name : string, optional, default value = "nothing"
+  :param age: person's age : integer, optional, default value = 0
   
   """
-  parameters=[
-    ["person", None,      str],
-    ["address","nothing", str],
-    ["age",    0,         int]
-    ]
+  parameter_defs={
+    "person"   : str,                  # :param person: person's name : string, mandatory
+    "address"  : (str,"nothing"),      # :param address: person's name : string, optional, default value = "nothing"
+    "age"      : (int,0)               # :param age: person's age : integer, optional, default value = 0
+    }
   
   
   def __init__(self, **kwargs):
     self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
-    parameterInit(self,kwargs)
+    parameterInitCheck(self.parameter_defs,kwargs,self) # check for input parameters
     
     
-  def __str__(self):
+  def __str__(self): # an example how to print all defined attributes
     st ="**************\n"
-    for parameter in self.parameters:
-      st+=parameter[0]+ ": "+str(getattr(self,parameter[0]))+"\n"
+    for parameter in self.parameter_defs:
+      st+=parameter+ ": "+str(getattr(self,parameter))+"\n"
     st+="**************\n"
     return st
   
@@ -81,9 +77,11 @@ class UberFancyHelloWorld(BaseHelloWorld):
   def doSomethingFancy(self,par):
     """This is simply a method that does something fancy with a parameter
     
+    Parameter could be checked using parameterInitCheck, like in the constructor
+    
     :param par: Parameter to do something fancy with
     
-    In fact, an empty routine.  Remember that everything goes here as well: here is a link to :ref:`the introduction <about>`.
+    As for documentation, everything goes here as well: here is a link to :ref:`the introduction <about>`.
     
     """
     pass
@@ -96,45 +94,194 @@ class UberFancyHelloWorld(BaseHelloWorld):
 
 
 
+class FancyHelloWorld3(FancyHelloWorld):
+  """An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`
+  
+  API checks for input types: here we have a complex object type as an input parameter
+  
+  :param person: person's name : string, mandatory
+  :param address: person's name : string, optional, default value = "nothing"
+  :param age: person's age : integer, optional, default value = 0
+  :param subgreeter: an object of the type :class:`~skeleton.greeters.fancy.FancyHelloWorld`
+  
+  """
+  parameter_defs={
+    "person"     : str,             # :param person: person's name : string, mandatory
+    "address"    : (str,"nothing"), # :param address: person's name : string, optional, default value = "nothing"
+    "age"        : (int,0),         # :param age: person's age : integer, optional, default value = 0
+    "subgreeter" : FancyHelloWorld  # :param subgreeter: an object of the type :class:`~skeleton.greeters.fancy.FancyHelloWorld`
+    }
+  
+  
+  def __init__(self, **kwargs):
+    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    parameterInitCheck(self.parameter_defs,kwargs,self) # check for input parameters
+
+
+
+class FancyHelloWorld4(FancyHelloWorld):
+  """An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`
+  
+  API checks for input types: one of the input parameters is undefined .. we simply check that is has certain attributes.  This would be a "tedious API". .. usefull if the input class is not yet fully fixed
+  
+  :param person: person's name : string, mandatory
+  :param address: person's name : string, optional, default value = "nothing"
+  :param age: person's age : integer, optional, default value = 0
+  :param vague: an object of unspecified type.  Custom checked with AttributeCheck_vague (see source code for more details)
+  """
+  
+  def AttributeCheck_vague(obj):
+    """Checks that the object has
+    
+    :param person: (string)
+    :param age: (int)
+    """
+    return objectCheck(obj,
+      { # check that object has these parameters
+      "person"  : str,
+      "age"     : int,
+      })
+      # we could do any sort of custom checks here.  Remember to return False or True
+      
+  
+  parameter_defs={
+    "person"     : str,                                    # :param person: person's name : string, mandatory
+    "address"    : (str,"nothing"),                        # :param address: person's name : string, optional, default value = "nothing"
+    "age"        : (int,0),                                # :param age: person's age : integer, optional, default value = 0
+    "vague"      : AttributeCheck_vague                    # :param vague: an object of unspecified type.  Custom checked wit AttributeCheck_vague (see source code for more details)
+    }
+  
+  
+  def __init__(self, **kwargs):
+    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    parameterInitCheck(self.parameter_defs,kwargs,self) # check for input parameters
+
+
+
+class FancyHelloWorld5(FancyHelloWorld):
+  """An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~skeleton.greeters.base.BaseHelloWorld`
+  
+  API checks for input types: one of the input parameters is left completely undefined .. This is an API that has been left intentionally broken
+  
+  :param person: person's name : string, mandatory
+  :param address: person's name : string, optional, default value = "nothing"
+  :param age: person's age : integer, optional, default value = 0
+  :param vague: an object of unspecified type. Congrats, your API is broken!  :)
+  """
+  
+  parameter_defs={
+    "person"     : str,                                    # :param person: person's name : string, mandatory
+    "address"    : (str,"nothing"),                        # :param address: person's name : string, optional, default value = "nothing"
+    "age"        : (int,0),                                # :param age: person's age : integer, optional, default value = 0
+    "vague"      : noCheck                                 # :param vague: an object of unspecified type. The "checking" is done with a function that returns always True (=everything goes)
+    }
+  
+  
+  def __init__(self, **kwargs):
+    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    parameterInitCheck(self.parameter_defs,kwargs,self) # check for input parameters
+
+
+
     
 def test1():
-  """ Test UberFancyHelloWorld
+  """ Test FancyHelloWorld2
   """
   pre=pre_mod+"test1 :"
+  
   print(pre,"test1")
-  print(pre,"Let's test UberFancyHelloWorld")
-  hw=UberFancyHelloWorld(person="Sampsa",age=40)
-  print(hw)
-  hw=UberFancyHelloWorld(person="Sampsa",address="Helsinki",age=40)
-  print(hw)
+  print(pre,"Let's test FancyHelloWorlds")
+  
+  print(pre,"FancyHelloWorld")
   try:
-    hw=UberFancyHelloWorld(address="Helsinki",age=40)
+    hw=FancyHelloWorld(address="Helsinki",age=40)
   except AttributeError as e:
     print(e)
   else:
     print(hw)
   try:
-    hw=UberFancyHelloWorld(person="Sampsa",address="Helsinki",age="40")
-  except AttributeError as e:
-    print(e)
-  else:
-    print(hw)
-    
-  print(pre,"Let's test FancyHelloWorld")
-  try:
-    hw=FancyHelloWorld("Sampsa")
+    hw=FancyHelloWorld(person="Sampsa",address="Helsinki",age="40")
   except AttributeError as e:
     print(e)
   else:
     print(hw)
   try:
-    hw=FancyHelloWorld(1)
+    hw=FancyHelloWorld(person="Sampsa")
   except AttributeError as e:
     print(e)
   else:
     print(hw)
   
-
+    
+  print(pre,"FancyHelloWorld2")
+  try:
+    hw2=FancyHelloWorld2(address="Helsinki",age=40)
+  except AttributeError as e:
+    print(e)
+  else:
+    print(hw)
+  try:
+    hw2=FancyHelloWorld2(person="Sampsa",address="Helsinki",age="40")
+  except AttributeError as e:
+    print(e)
+  else:
+    print(hw)
+  try:
+    hw2=FancyHelloWorld2(person="Sampsa",address="Helsinki",age=40)
+  except AttributeError as e:
+    print(e)
+  else:
+    print(hw)
+  
+  
+  print(pre,"FancyHelloWorld3")
+  try:
+    hw3=FancyHelloWorld3(person="Sampsa",subgreeter="x")
+  except AttributeError as e:
+    print(e)
+  else:
+    print(hw)
+  try:
+    hw3=FancyHelloWorld3(person="Sampsa",subgreeter=hw)
+  except AttributeError as e:
+    print(e)
+  else:
+    print(hw)
+  
+  
+  print(pre,"FancyHelloWorld4")
+  class NameSpace: # test object
+    def __init__(self):
+      self.person="sampsa"
+      self.age   ="40" # wrong attribute
+  
+  try:
+    hw4=FancyHelloWorld4(person="me",vague=NameSpace())
+  except AttributeError as e:
+    print(e)
+  else:
+    print(hw)
+  
+  class NameSpace: # test object
+    def __init__(self):
+      self.person="sampsa" # correct attributes
+      self.age   =40
+  
+  try:
+    hw4=FancyHelloWorld4(person="me",vague=NameSpace())
+  except AttributeError as e:
+    print(e)
+  else:
+    print(hw)
+  
+  print(pre,"FancyHelloWorld5")
+  try:
+    hw5=FancyHelloWorld5(person="me",vague=None)
+  except AttributeError as e:
+    print(e)
+  else:
+    print(hw)
+  
 
 
 # this rest is just broilerplate .. copy it to your new module ! :)
