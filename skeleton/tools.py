@@ -13,13 +13,81 @@ Skeleton example library is free software: you can redistribute it and/or modify
 
 import copy
 import types
+import sys
+import os
+import inspect
 
 
-def objectCheck(obj, definitions):
+is_py3 = (sys.version_info >= (3,0))
+
+
+def getModulePath():
+  lis=inspect.getabsfile(inspect.currentframe()).split("/")
+  st="/"
+  for l in lis[:-1]:
+    st=os.path.join(st,l)
+  return st
+  
+
+def getTestDataPath():
+  return os.path.join(getModulePath(),"test_data")
+
+
+def getTestDataFile(fname):
+  return os.path.join(getTestDataPath(),fname)
+
+
+def getDataPath():
+  return os.path.join(getModulePath(),"data")
+
+
+def getDataFile(fname):
+  """Return complete path to datafile fname.  Data files are in the directory skeleton/skeleton/data
+  """
+  return os.path.join(getDataPath(),fname)
+
+
+
+def typeCheck(obj, typ):
+  """Check type of obj, for example: typeCheck(x,int)
+  """
+  if (obj.__class__!=typ):
+    raise(AttributeError("Object should be of type "+typ.__name__))
+  
+  
+def dictionaryCheck(definitions, dic):
+  """ Checks that dictionary has certain values, according to definitions
+  
+  :param definitions: Dictionary defining the parameters and their types (dic should have at least these params)
+  :param dic:         Dictionary to be checked
+  
+  An example definitions dictionary:
+  
+  |{
+  |"age"     : int,         # must have attribute age that is an integer
+  |"name"    : str,         # must have attribute name that is a string            
+  | }
+  """
+  
+  for key in definitions:
+    # print("dictionaryCheck: key=",key)
+    required_type=definitions[key]
+    try:
+      attr=dic[key]
+    except KeyError:
+      raise(AttributeError("Dictionary missing key "+key))
+    # print("dictionaryCheck:","got: ",attr,"of type",attr.__class__,"should be",required_type)
+    if (attr.__class__ != required_type):
+      raise(AttributeError("Wrong type of parameter "+key+" : is "+attr.__class__.__name__+" should be "+required_type.__name__))
+      return False # eh.. program quits anyway
+  return True
+    
+
+def objectCheck(definitions, obj):
   """ Checks that object has certain attributes, according to definitions
   
+  :param definitions: Dictionary defining the parameters and their types (obj should have at least these attributes)
   :param obj:         Object to be checked
-  :param definitions: Dictionary defining the parameters and their types
   
   An example definitions dictionary:
   
@@ -36,7 +104,7 @@ def objectCheck(obj, definitions):
     if (attr.__class__ != required_type):
       raise(AttributeError("Wrong type of parameter "+key+" : should be "+required_type.__name__))
       return False # eh.. program quits anyway
-    return True
+  return True
     
   
 def parameterInitCheck(definitions, parameters, obj):
@@ -103,6 +171,10 @@ def parameterInitCheck(definitions, parameters, obj):
       raise(AttributeError("Missing a mandatory parameter "+key))
     
     
-
 def noCheck(obj):
   return True
+
+
+
+
+

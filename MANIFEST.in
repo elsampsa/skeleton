@@ -1,2 +1,2 @@
 graft docs
-include skeleton/greeters/some_auxiliary_file
+include skeleton/data/some_auxiliary_file

@@ -98,6 +98,14 @@ git push -u origin master
 <blockquote>
 <div><ul class="simple">
 <li>The name of your package (that is also the name of your python module) should not contain &#8220;weird characters&#8221;, i.e. &#8221;.,-&#8221; etc.</li>
+<li>Remember to add git tags with (here we create tag &#8220;v1.2&#8221;)</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre>git tag v1.2
+git push origin --tags
+</pre></div>
+</div>
+<ul class="simple">
+<li>..now production users can install with pip(3) certain revisions of the software (see <a class="reference internal" href="requirements.html#production"><span>here</span></a>)</li>
 </ul>
 </div></blockquote>
 </div>
@@ -138,6 +146,9 @@ git push -u origin master
 </tr>
 <tr class="row-odd"><td>reinit.bash</td>
 <td>Reinitializes the package name</td>
+</tr>
+<tr class="row-even"><td>cleanpy.bash</td>
+<td>Removes __pycache__ directories and .pyc files; Do maybe before &#8220;git add .&#8221;</td>
 </tr>
 </tbody>
 </table>
@@ -219,6 +230,9 @@ git push -u origin master
 </tr>
 <tr class="row-even"><td>greeters/</td>
 <td>Submodule</td>
+</tr>
+<tr class="row-odd"><td>data/</td>
+<td>Static data the module needs and that is included in the python package</td>
 </tr>
 </tbody>
 </table>

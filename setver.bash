@@ -20,3 +20,14 @@ do
   find $f -exec sed -i -r "s/release = '(.*)'/version = '$1'/g" {} \;
 done
 
+# TODO: change version in the preamble of the .py files
+# TODO: script for inserting COPYRIGHT into .py files
+
+echo Dont forget to use ..
+echo
+echo git $1
+echo git push origin --tags
+echo
+echo .. this informs git about the new version number
+echo
+

@@ -61,11 +61,9 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">pre_mod</span> <span class="o">=</span> <span class="s2">&quot;skeleton.greeters.fancy : &quot;</span> <span class="c1"># a string for aux debuggin purposes</span>
-
-<span class="kn">from</span> <span class="nn">skeleton.tools</span> <span class="kn">import</span> <span class="n">objectCheck</span><span class="p">,</span> <span class="n">parameterInitCheck</span><span class="p">,</span> <span class="n">noCheck</span>
+<span class="kn">from</span> <span class="nn">skeleton.tools</span> <span class="kn">import</span> <span class="n">getDataFile</span><span class="p">,</span> <span class="n">typeCheck</span><span class="p">,</span> <span class="n">dictionaryCheck</span><span class="p">,</span> <span class="n">objectCheck</span><span class="p">,</span> <span class="n">parameterInitCheck</span><span class="p">,</span> <span class="n">noCheck</span><span class="p">,</span> <span class="n">is_py3</span>
 <span class="kn">from</span> <span class="nn">skeleton.greeters.base</span> <span class="kn">import</span> <span class="n">BaseHelloWorld</span> <span class="c1"># it&#39;s good to use the absolute paths here (API user could use simply &quot;from skeleton.greeters import BaseHelloWorld&quot;)</span>
-
+<span class="n">pre_mod</span> <span class="o">=</span> <span class="s2">&quot;skeleton.greeters.fancy : &quot;</span> <span class="c1"># a string for aux debuggin purposes</span>
 
 
 <div class="viewcode-block" id="FancyHelloWorld"><a class="viewcode-back" href="../../../generated/skeleton.greeters.fancy.html#skeleton.greeters.fancy.FancyHelloWorld">[docs]</a><span class="k">class</span> <span class="nc">FancyHelloWorld</span><span class="p">(</span><span class="n">BaseHelloWorld</span><span class="p">):</span>
@@ -185,11 +183,11 @@
 <span class="sd">    :param person: (string)</span>
 <span class="sd">    :param age: (int)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">objectCheck</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span>
+    <span class="k">return</span> <span class="n">objectCheck</span><span class="p">(</span>
       <span class="p">{</span> <span class="c1"># check that object has these parameters</span>
       <span class="s2">&quot;person&quot;</span>  <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
       <span class="s2">&quot;age&quot;</span>     <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-      <span class="p">})</span></div>
+      <span class="p">},</span><span class="n">obj</span><span class="p">)</span></div>
       <span class="c1"># we could do any sort of custom checks here.  Remember to return False or True</span>
       
   

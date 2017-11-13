@@ -11,9 +11,8 @@ This file is part of the python skeleton example library
 Skeleton example library is free software: you can redistribute it and/or modify it under the terms of the MIT License.  This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the MIT License for more details.
 """
 import sys
+from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3
 pre_mod = "skeleton.greeters.base : " # a string for aux debugging
-
-from skeleton.tools import parameterInitCheck
 
 
 # If I remember correctly, in python3 all classes are automatically children of object

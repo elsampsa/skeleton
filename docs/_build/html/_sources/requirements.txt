@@ -31,7 +31,7 @@ Start also the following system service
 Developers
 ----------
 
-For developing this package using git, install it with these commands:
+Developers should install this package with:
 
 ::
 
@@ -41,16 +41,27 @@ For developing this package using git, install it with these commands:
   ln -s $PWD/your_package_name $PYTHONPATH/
         
 
+.. _production:
+        
 Production
 ----------
 
-Production users should use this command to install (use either pip or pip3):
+Production users should use this command to install the latest version (use either pip or pip3):
 
 ::
 
-  pip3 install git+https://[your-personal-git-repository]/your_package_name
+  pip3 install git+git://[your-personal-git-repository]/your_package_name
 
 
+To install a specific version of the package, use
+
+::
+
+  pip3 install git+git://[your-personal-git-repository]/your_package_name@version_tag
+
+  
+
+  
 Test the package
 ----------------
   
@@ -59,7 +70,8 @@ Once you've installed this package (either for development or for production), t
 ::
 
   ipython3
-  from your_package_name.greeters import UberFancyHelloWorld
-  gr=UberFancyHelloWorld(person="Sampsa",age=40)
+  from your_package_name.greeters import FancyHelloWorld
+  gr=FancyHelloWorld(person="Sampsa",age=40)
   print(gr)
     
+

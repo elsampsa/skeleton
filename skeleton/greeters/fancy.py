@@ -12,11 +12,9 @@ Skeleton example library is free software: you can redistribute it and/or modify
 """
 
 import sys
-pre_mod = "skeleton.greeters.fancy : " # a string for aux debuggin purposes
-
-from skeleton.tools import objectCheck, parameterInitCheck, noCheck
+from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3
 from skeleton.greeters.base import BaseHelloWorld # it's good to use the absolute paths here (API user could use simply "from skeleton.greeters import BaseHelloWorld")
-
+pre_mod = "skeleton.greeters.fancy : " # a string for aux debuggin purposes
 
 
 class FancyHelloWorld(BaseHelloWorld):
@@ -136,11 +134,11 @@ class FancyHelloWorld4(FancyHelloWorld):
     :param person: (string)
     :param age: (int)
     """
-    return objectCheck(obj,
+    return objectCheck(
       { # check that object has these parameters
       "person"  : str,
       "age"     : int,
-      })
+      },obj)
       # we could do any sort of custom checks here.  Remember to return False or True
       
   
