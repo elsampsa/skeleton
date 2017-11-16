@@ -58,9 +58,7 @@ To install a specific version of the package, use
 ::
 
   pip3 install git+git://[your-personal-git-repository]/your_package_name@version_tag
-
   
-
   
 Test the package
 ----------------

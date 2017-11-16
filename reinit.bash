@@ -24,6 +24,5 @@ mkdir _static
 # ./compile.bash # we can compile documentation only after this module is on the pythonpath!
 cd ..
 # decouple from git
-cd $name
 rm -rf .git .gitignore
-cd ..
+

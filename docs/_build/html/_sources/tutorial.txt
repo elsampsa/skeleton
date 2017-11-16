@@ -153,9 +153,29 @@ To see your documentation, launch
   firefox index.html
   
 
-If you are using github, after creating the git repo, create also a site for your project like this:  Settings => GitHub pages => Source : master branch / docs folder => press Save.  Now your documentation is online in github! (don't forget to include the "docs/" folder into git).
+Online autodocumentation
+------------------------
+  
+**Github users**
+  
+After creating the git repo, create also a site for your project like this:  Settings => GitHub pages => Source : master branch / docs folder => press Save.  Now your documentation is online in github! (don't forget to include the "docs/" folder into git).
+    
+**Gitlab users**
+  
+Using a generic service that uses a gitlab server?  No problem.  There is a simple hack to put the autodocs online.
 
+  * In gitlab, create a wiki page for your project.  Write there the words "Hello world".  Next, clone the wiki repository (not *the* repository, just the *wiki repository*) with that button on the right that says "clone repository".
+  * Edit your projects "docs/compile.bash".  Uncomment the options for Gitlab and set the directory of your wiki repository correctly.  Run "./compile.bash".  Now the whole documentation tree has been copied to your wiki repo directory.
+  * In the wiki repo directory, open "home.md" in an editor.  Modify it to look like this:
+  
+  ::
+  
+    For documentation
+    [click here](_build/html/index.html)
+    
+  * You still need to use git to add and push all the files to the wiki repository online (there are instructions in "compile.bash")
 
+    
 Organizing large python projects
 --------------------------------
 

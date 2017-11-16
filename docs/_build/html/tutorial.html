@@ -252,7 +252,27 @@ git push origin --tags
 <div class="highlight-python"><div class="highlight"><pre>firefox index.html
 </pre></div>
 </div>
-<p>If you are using github, after creating the git repo, create also a site for your project like this:  Settings =&gt; GitHub pages =&gt; Source : master branch / docs folder =&gt; press Save.  Now your documentation is online in github! (don&#8217;t forget to include the &#8220;docs/&#8221; folder into git).</p>
+</div>
+<div class="section" id="online-autodocumentation">
+<h2>Online autodocumentation<a class="headerlink" href="#online-autodocumentation" title="Permalink to this headline">¶</a></h2>
+<p><strong>Github users</strong></p>
+<p>After creating the git repo, create also a site for your project like this:  Settings =&gt; GitHub pages =&gt; Source : master branch / docs folder =&gt; press Save.  Now your documentation is online in github! (don&#8217;t forget to include the &#8220;docs/&#8221; folder into git).</p>
+<p><strong>Gitlab users</strong></p>
+<p>Using a generic service that uses a gitlab server?  No problem.  There is a simple hack to put the autodocs online.</p>
+<blockquote>
+<div><ul class="simple">
+<li>In gitlab, create a wiki page for your project.  Write there the words &#8220;Hello world&#8221;.  Next, clone the wiki repository (not <em>the</em> repository, just the <em>wiki repository</em>) with that button on the right that says &#8220;clone repository&#8221;.</li>
+<li>Edit your projects &#8220;docs/compile.bash&#8221;.  Uncomment the options for Gitlab and set the directory of your wiki repository correctly.  Run &#8221;./compile.bash&#8221;.  Now the whole documentation tree has been copied to your wiki repo directory.</li>
+<li>In the wiki repo directory, open &#8220;home.md&#8221; in an editor.  Modify it to look like this:</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre>For documentation
+[click here](_build/html/index.html)
+</pre></div>
+</div>
+<ul class="simple">
+<li>You still need to use git to add and push all the files to the wiki repository online (there are instructions in &#8220;compile.bash&#8221;)</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="organizing-large-python-projects">
 <h2>Organizing large python projects<a class="headerlink" href="#organizing-large-python-projects" title="Permalink to this headline">¶</a></h2>
@@ -391,6 +411,7 @@ python3 setup.py sdist
 <li><a class="reference internal" href="#">Tutorial - start here</a><ul>
 <li><a class="reference internal" href="#for-the-impatient">For the impatient</a></li>
 <li><a class="reference internal" href="#files">Files</a></li>
+<li><a class="reference internal" href="#online-autodocumentation">Online autodocumentation</a></li>
 <li><a class="reference internal" href="#organizing-large-python-projects">Organizing large python projects</a></li>
 <li><a class="reference internal" href="#code-organization">Code Organization</a></li>
 <li><a class="reference internal" href="#quick-testing">Quick testing</a></li>
