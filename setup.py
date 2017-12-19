@@ -7,7 +7,9 @@ version = '0.1' # WARNING: modified by setver.bash
 setup(
   name = "skeleton",
   version = version,
-  install_requires = ['docutils>=0.3'],
+  install_requires = [
+    'docutils>=0.3', # List here the required packages!  List them also in "docs/snippets/requirements.txt"
+    ],
 
   packages = find_packages(),  
   

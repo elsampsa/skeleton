@@ -23,11 +23,11 @@ done
 # TODO: change version in the preamble of the .py files
 # TODO: script for inserting COPYRIGHT into .py files
 
+
 echo Dont forget to use ..
 echo
-echo git $1
+echo "git tag -a "$version" -m 'my version "$version"'"
 echo git push origin --tags
 echo
 echo .. this informs git about the new version number
 echo
-

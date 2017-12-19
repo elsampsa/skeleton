@@ -100,7 +100,7 @@ git push -u origin master
 <li>The name of your package (that is also the name of your python module) should not contain &#8220;weird characters&#8221;, i.e. &#8221;.,-&#8221; etc.</li>
 <li>Remember to add git tags with (here we create tag &#8220;v1.2&#8221;)</li>
 </ul>
-<div class="highlight-python"><div class="highlight"><pre>git tag v1.2
+<div class="highlight-python"><div class="highlight"><pre>git tag v1.2 -m &quot;cool version v1.2&quot;
 git push origin --tags
 </pre></div>
 </div>
@@ -108,6 +108,11 @@ git push origin --tags
 <li>..now production users can install with pip(3) certain revisions of the software (see <a class="reference internal" href="requirements.html#production"><span>here</span></a>)</li>
 </ul>
 </div></blockquote>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Keep up with your dependencies!</p>
+<p>Edit the setup.py and there, the &#8220;install_requires&#8221; field.  This way, when installing your package with pip3, depencencies are automagically resolved.  Keep them up to date also in the file <em>docs/snippets/requirements.txt</em>.</p>
 </div>
 <div class="section" id="files">
 <h2>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h2>
@@ -205,7 +210,7 @@ git push origin --tags
 <td>Dummy file.  This is needed for the on-line documentation to work with GitHub [don&#8217;t touch]</td>
 </tr>
 <tr class="row-even"><td>snippets/</td>
-<td>Example snippet source files and scripts for generating pages from them</td>
+<td>Example snippet source files and scripts for generating pages from them.  Edit also the file requirements.txt here.</td>
 </tr>
 <tr class="row-odd"><td>generated/</td>
 <td>Auto-generated documents [don&#8217;t touch]</td>
@@ -398,6 +403,10 @@ python3 setup.py sdist
 <li>It is also a good idea to add &#8220;exceptions.py&#8221; under &#8220;greeters&#8221;.  This way you can quickly see what custom exceptions must be handled.</li>
 </ul>
 </div>
+<div class="section" id="internal-links">
+<h2>Internal links<a class="headerlink" href="#internal-links" title="Permalink to this headline">¶</a></h2>
+<p>Remember that reference we did up there?  Here is a <a class="reference internal" href="intro.html#intro"><span>link</span></a> to it.</p>
+</div>
 </div>
 
 
@@ -410,6 +419,7 @@ python3 setup.py sdist
   <ul>
 <li><a class="reference internal" href="#">Tutorial - start here</a><ul>
 <li><a class="reference internal" href="#for-the-impatient">For the impatient</a></li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li><a class="reference internal" href="#files">Files</a></li>
 <li><a class="reference internal" href="#online-autodocumentation">Online autodocumentation</a></li>
 <li><a class="reference internal" href="#organizing-large-python-projects">Organizing large python projects</a></li>
@@ -418,6 +428,7 @@ python3 setup.py sdist
 <li><a class="reference internal" href="#packaging">Packaging</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li><a class="reference internal" href="#internal-links">Internal links</a></li>
 </ul>
 </li>
 </ul>

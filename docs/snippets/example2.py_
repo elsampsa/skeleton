@@ -1,4 +1,3 @@
-
 :: 
 
     from skeleton.greeters import FancyHelloWorld
@@ -6,4 +5,3 @@
     gr=FancyHelloWorld(person="Sampsa")
     # print the result
     print(gr) 
-
