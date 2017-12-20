@@ -4,12 +4,19 @@
 Getting started
 ===============
 
-
 Explain here, what you need to do in order to get the module up and running
 
 .. let's do cross-referencing
 
 Let's refer to :ref:`the introduction <intro>`.
+
+
+System requirements
+-------------------
+
+.. list here architecture-specific and python-version-specific requirements
+
+Use Linux and Mac if you have to, but never Windows.
 
 
 The Absolute Quickstart
@@ -19,25 +26,17 @@ To get this up and running, do the following:
 
 ::
 
-  pip3 install git+git://[your-personal-git-repository]/your_package_name
+  pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name
 
   
-.. some other possible commands:
-.. pip3 install git+ssh://user@[your-personal-git-repository]/your_package_name
+.. some other possible commands that might work for you:
+.. pip3 install --upgrade git+ssh://user@[your-personal-git-repository]/your_package_name
 
 .. developer, always test your packages in virtualenv, like this:
 .. virtualenv --no-site-packages -p python3 test
 .. cd test
 .. source bin/activate
 .. pip3 install git+ETC
-
-
-System requirements
--------------------
-
-.. list here architecture-specific and python-version-specific requirements
-
-Use Linux and Mac if you have to, but never Windows.
 
 
 Required packages
@@ -83,21 +82,20 @@ Production users should use this command to install the latest version (use eith
 
 ::
 
-  pip3 install git+git://[your-personal-git-repository]/your_package_name
+  pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name
 
-  
 .. some other possible commands:
-.. pip3 install git+ssh://user@[your-personal-git-repository]/your_package_name
+.. pip3 install --upgrade git+ssh://user@[your-personal-git-repository]/your_package_name
   
 
 To install a specific version of the package, use
 
 ::
 
-  pip3 install git+git://[your-personal-git-repository]/your_package_name@version_tag
+  pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name@version_tag
 
 .. some other possible commands:
-.. pip3 install git+ssh://user@[your-personal-git-repository]/your_package_name@version_tag
+.. pip3 install --upgrade git+ssh://user@[your-personal-git-repository]/your_package_name@version_tag
 
   
   

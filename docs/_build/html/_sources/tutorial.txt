@@ -292,10 +292,46 @@ If you have done everything as instructed here, creating a distributable python 
   python3 setup.py sdist
 
   
-Your distributable python package is now in directory "dist/".  You can install it with pip(3).
+Your distributable python package is now in directory "dist/".  You can install it with:
 
-The setup.py script automatically finds and includes python packages to the distribution package.  In "MANIFEST.in" we also tell it to include the complete "docs/" directory and an auxiliary file from the "greeters" submodule
+:: 
 
+  pip3 install --upgrade dist/your_package_name-version.tar.gz
+    
+The setup.py script automatically finds and includes python packages to the distribution package.  In "MANIFEST.in" we also tell it to include the complete "docs/" directory and an auxiliary file from the "greeters" submodule.  See "setup.py" for more instructions.
+
+Polish your setup script with the following cycle:
+
+::
+
+  rm dist/*
+  python3 setup.py sdist
+  pip3 install --upgrade --verbose dist/your_package_name-version.tar.gz
+
+The verbose option is nice to see any problems, with say, your post-installing script defined in setup.py.  Once you have got rid of all the errors, you can be sure that it works also when people install your python package directly from git using pip(3). 
+
+When testing the pip(3) installation directly from git, use virtualenv to see that you got the dependencies right.  First, create a virtualenv:
+
+::
+
+  virtualenv --no-site-packages -p python3 test
+
+Then let's use that virtualenv (we clean up PYTHONPATH so that this is truly an isolated installation) to test your production system:
+  
+::
+
+  cd test
+  source bin/activate
+  export PYTHONPATH=
+  pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name
+
+See :ref:`here <started>` how the end-user would be using your python module directly from git.
+  
+To exit from virtualenv, use:
+
+::
+  
+  deactivate
 
 
 Examples
