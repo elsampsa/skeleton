@@ -60,13 +60,6 @@
 <h2>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
 <p>Use Linux and Mac if you have to, but never Windows.</p>
 </div>
-<div class="section" id="the-absolute-quickstart">
-<h2>The Absolute Quickstart<a class="headerlink" href="#the-absolute-quickstart" title="Permalink to this headline">¶</a></h2>
-<p>To get this up and running, do the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name
-</pre></div>
-</div>
-</div>
 <div class="section" id="required-packages">
 <h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
 <p>Install the following packages on a debian-based distribution:</p>
@@ -80,11 +73,21 @@
 </div>
 <div class="section" id="developers">
 <h2>Developers<a class="headerlink" href="#developers" title="Permalink to this headline">¶</a></h2>
-<p>Developers should install this package with:</p>
+<p>Set up your environment (you might have these directories already):</p>
+<div class="highlight-python"><div class="highlight"><pre>cd
+mkdir python3
+mkdir python3_packages
+</pre></div>
+</div>
+<p>Include python3 into your PYTHONPATH (include this one into your .bashrc)</p>
+<div class="highlight-python"><div class="highlight"><pre>export PYTHONPATH=$PYTHONPATH:$HOME/python3
+</pre></div>
+</div>
+<p>Install this package with:</p>
 <div class="highlight-python"><div class="highlight"><pre>cd ~/python3_packages
 git clone https://[your-personal-git-repository]/your_package_name
 cd your_package_name
-ln -s $PWD/your_package_name $PYTHONPATH/
+ln -s $PWD/your_package_name $HOME/python3
 </pre></div>
 </div>
 <p>List of additional required <a class="reference download internal" href="_downloads/requirements.txt" download=""><code class="xref download docutils literal"><span class="pre">[packages]</span></code></a>:</p>
@@ -94,11 +97,7 @@ ln -s $PWD/your_package_name $PYTHONPATH/
 </div>
 <div class="section" id="production">
 <span id="id1"></span><h2>Production<a class="headerlink" href="#production" title="Permalink to this headline">¶</a></h2>
-<p>Production users should use this command to install the latest version (use either pip or pip3):</p>
-<div class="highlight-python"><div class="highlight"><pre>pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name
-</pre></div>
-</div>
-<p>To install a specific version of the package, use</p>
+<p>Install the package with:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name@version_tag
 </pre></div>
 </div>
@@ -125,7 +124,6 @@ ln -s $PWD/your_package_name $PYTHONPATH/
   <ul>
 <li><a class="reference internal" href="#">Getting started</a><ul>
 <li><a class="reference internal" href="#system-requirements">System requirements</a></li>
-<li><a class="reference internal" href="#the-absolute-quickstart">The Absolute Quickstart</a></li>
 <li><a class="reference internal" href="#required-packages">Required packages</a></li>
 <li><a class="reference internal" href="#developers">Developers</a></li>
 <li><a class="reference internal" href="#production">Production</a></li>

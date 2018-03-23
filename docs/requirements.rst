@@ -19,25 +19,6 @@ System requirements
 Use Linux and Mac if you have to, but never Windows.
 
 
-The Absolute Quickstart
------------------------
-
-To get this up and running, do the following:
-
-::
-
-  pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name
-
-  
-.. some other possible commands that might work for you:
-.. pip3 install --upgrade git+ssh://user@[your-personal-git-repository]/your_package_name
-
-.. developer, always test your packages in virtualenv, like this:
-.. virtualenv --no-site-packages -p python3 test
-.. cd test
-.. source bin/activate
-.. pip3 install git+ETC
-
 
 Required packages
 -----------------
@@ -59,36 +40,53 @@ Start also the following system service
 Developers
 ----------
 
-Developers should install this package with:
+.. tip for developers: you can copy paste this section and send it to a new team member
+
+Set up your environment (you might have these directories already):
+
+::
+
+  cd
+  mkdir python3
+  mkdir python3_packages
+
+
+Include python3 into your PYTHONPATH (include this one into your .bashrc)
+
+::
+
+  export PYTHONPATH=$PYTHONPATH:$HOME/python3
+  
+
+Install this package with:
 
 ::
 
   cd ~/python3_packages
   git clone https://[your-personal-git-repository]/your_package_name
   cd your_package_name
-  ln -s $PWD/your_package_name $PYTHONPATH/
+  ln -s $PWD/your_package_name $HOME/python3
         
 
 List of additional required :download:`[packages]<snippets/requirements.txt>`:
 
 .. include:: snippets/requirements.txt_
-                
+               
+.. developer, always test your packages in virtualenv, like this:
+.. virtualenv --no-site-packages -p python3 test
+.. cd test
+.. source bin/activate
+.. pip3 install git+ETC
+
 .. _production:
         
+
 Production
 ----------
 
-Production users should use this command to install the latest version (use either pip or pip3):
+.. attention: production versions should always come with a version tag
 
-::
-
-  pip3 install --upgrade git+git://[your-personal-git-repository]/your_package_name
-
-.. some other possible commands:
-.. pip3 install --upgrade git+ssh://user@[your-personal-git-repository]/your_package_name
-  
-
-To install a specific version of the package, use
+Install the package with:
 
 ::
 
@@ -97,8 +95,7 @@ To install a specific version of the package, use
 .. some other possible commands:
 .. pip3 install --upgrade git+ssh://user@[your-personal-git-repository]/your_package_name@version_tag
 
-  
-  
+
 Test the package
 ----------------
   

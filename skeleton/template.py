@@ -12,9 +12,9 @@ This file is part of the skeleton library
 """
 
 import sys
+from skeleton.tools import typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck
 pre_mod = "module.submodule : " # a string for aux debuggin purposes
 
-from skeleton.tools import typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck
 
 class EmptyClass(object):
   """An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~vainu_ner.greeters.base.BaseHelloWorld`
@@ -41,19 +41,17 @@ class EmptyClass(object):
 
     
 def test1():
-  """ Empty test
+  st="""Empty test
   """
   pre=pre_mod+"test1 :"
-  print(pre,"test1")
-  print(pre,"description of test1")
-
+  print(pre,st)
+  
 
 def test2():
-  """ Empty test
+  st="""Empty test
   """
-  pre=pre_mod+"test12 :"
-  print(pre,"test2")
-  print(pre,"description of test2")
+  pre=pre_mod+"test2 :"
+  print(pre,st)
   
 
 def main():

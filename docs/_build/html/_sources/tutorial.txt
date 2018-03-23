@@ -35,7 +35,23 @@ For the impatient
 
 To start developing your own project ASAP, do the following:
 
-Let's assume your development python packages are in **~/python3_packages**.  Your pythonpath is **$PYTHONPATH**.  Your name is *Janne Jantunen* and you have decided to create a new package named *your_package_name*.  Proceed like this:
+Set up your environment (you might have these directories already):
+
+::
+
+  cd
+  mkdir python3
+  mkdir python3_packages
+
+
+Include python3 into your PYTHONPATH (include this line into your **.bashrc** as well)
+
+::
+
+  export PYTHONPATH=$PYTHONPATH:$HOME/python3
+
+
+So, your development python packages are in **~/python3_packages**.  Your name is *Janne Jantunen* and you have decided to create a new package named *your_package_name*.  Proceed like this:
 
 ::
 
@@ -46,7 +62,7 @@ Let's assume your development python packages are in **~/python3_packages**.  Yo
   ./reinit.bash
   ./setauthor.bash "Janne Jantunen"
   ./setver.bash "0.1"
-  ln -s $PWD/your_package_name $PYTHONPATH/
+  ln -s $PWD/your_package_name $HOME/python3
 
   
 Mod the documentation by editing .rst files in the "docs/" directory.  The idea is that you hide/delete this page ("tutorial.rst") from your own module.
@@ -144,7 +160,7 @@ This page has been produced with the file "docs/tutorial.rst".  Go ahead and ope
 The scaffolding "double-directory" your_package_name/your_package_name structure might seem inconvenient, but it is necessary for packaging.  Here is what we just did in the :ref:`For the impatient <impatient>` section:
 
 * Keep "scaffolded" python modules in, say "~/python3_packages"
-* Link the python module directories to your $PYTHONPATH
+* Link the python module directories to "~/python3"
 
 It's time to start documenting!  Edit the files "docs/*.rst".  Here are `some nice tips <http://www.sphinx-doc.org/en/stable/rest.html>`_ for using Sphinx and here `are some more <http://www.sphinx-doc.org/en/stable/markup/inline.html>`_
 
