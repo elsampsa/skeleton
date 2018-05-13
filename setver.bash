@@ -17,12 +17,11 @@ fs="MANIFEST.in README.md setup.py $name/* docs/*"
 for f in $fs
 do
   find $f -exec sed -i -r "s/version = '(.*)'/version = '$1'/g" {} \;
-  find $f -exec sed -i -r "s/release = '(.*)'/version = '$1'/g" {} \;
+  find $f -exec sed -i -r "s/release = '(.*)'/release = '$1'/g" {} \;
 done
 
-# TODO: change version in the preamble of the .py files
-# TODO: script for inserting COPYRIGHT into .py files
-
+# mod python files:
+find -name "*.py" -exec sed -i -r "s/@version (.*)/@version $1 /g" {} \;
 
 echo Dont forget to use ..
 echo

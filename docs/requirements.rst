@@ -55,7 +55,7 @@ Include python3 into your PYTHONPATH (include this one into your .bashrc)
 
 ::
 
-  export PYTHONPATH=$PYTHONPATH:$HOME/python3
+  export PYTHONPATH=$HOME/python3
   
 
 Install this package with:
@@ -66,7 +66,10 @@ Install this package with:
   git clone https://[your-personal-git-repository]/your_package_name
   cd your_package_name
   ln -s $PWD/your_package_name $HOME/python3
-        
+
+.. if you have set up your own git repo, the command looks typically like this:
+.. git clone git@$YOUR_SERVER:your_package_name.git
+  
 
 List of additional required :download:`[packages]<snippets/requirements.txt>`:
 

@@ -48,7 +48,7 @@ Include python3 into your PYTHONPATH (include this line into your **.bashrc** as
 
 ::
 
-  export PYTHONPATH=$PYTHONPATH:$HOME/python3
+  export PYTHONPATH=$HOME/python3
 
 
 So, your development python packages are in **~/python3_packages**.  Your name is *Janne Jantunen* and you have decided to create a new package named *your_package_name*.  Proceed like this:
