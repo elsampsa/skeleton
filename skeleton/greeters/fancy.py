@@ -10,6 +10,7 @@ This file is part of the python skeleton example library
 
 Skeleton example library is free software: you can redistribute it and/or modify it under the terms of the MIT License.  This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the MIT License for more details.
 """
+__all__=["FancyHelloWorld","FancyHelloWorld2","FancyHelloWorld3","FancyHelloWorld4","FancyHelloWorld5"] # this declares what is exposed for the API user in the "from skeleton import .." namespace
 
 import sys
 from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3
