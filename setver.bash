@@ -1,32 +1,30 @@
 #!/bin/bash
-name=$(basename $PWD)
-if [ $# -ne 1 ]; then
-  # echo "Give version and release in quotation marks, like this:"
-  # echo '"0" "1"'
-  echo "Give version name in quotation marks, like this:"
-  echo '"1.0"'
+if [ $# -ne 3 ]; then
+  echo "Give major minor patch"
   exit
 fi
+# mod python files: TODO: you might need to edit this
+find -name "*.py" -exec sed -i -r "s/@version .*/@version $1.$2.$3 /g" {} \;
 
-# echo setting version $1 release $2
-echo setting version $1
-
-# exit
-
-fs="MANIFEST.in README.md setup.py $name/* docs/*"
+fs="docs/*"
 for f in $fs
 do
-  find $f -exec sed -i -r "s/version = '(.*)'/version = '$1'/g" {} \;
-  find $f -exec sed -i -r "s/release = '(.*)'/release = '$1'/g" {} \;
+  find $f -exec sed -i -r "s/version = '.*'/version = '$1.$2.$3'/g" {} \;
+  find $f -exec sed -i -r "s/release = '.*'/version = '$1.$2.$3'/g" {} \;
 done
 
-# mod python files:
-find -name "*.py" -exec sed -i -r "s/@version (.*)/@version $1 /g" {} \;
+fs="git_tag.bash git_rm_tag.bash"
+for f in $fs
+do
+  # mod version numbers in git_tag.bash
+  sed -i -r "s/VERSION_MAJOR=.*/VERSION_MAJOR=$1/g" $f
+  sed -i -r "s/VERSION_MINOR=.*/VERSION_MINOR=$2/g" $f
+  sed -i -r "s/VERSION_PATCH=.*/VERSION_PATCH=$3/g" $f
+done
 
-echo Dont forget to use ..
 echo
-echo "git tag -a "$version" -m 'my version "$version"'"
-echo git push origin --tags
+echo Updating docs
 echo
-echo .. this informs git about the new version number
-echo
+cd docs
+./compile.bash
+cd ..
