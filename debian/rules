@@ -1,0 +1,39 @@
+#!/usr/bin/make -f
+MAINDIR   = $(CURDIR)
+BUILDDIR  = $(MAINDIR)/build_dir
+
+# secondly called by launchpad
+build:
+	bash make.bash
+	mkdir -p $(BUILDDIR);
+	pip3 install $(MAINDIR)/dist/skeleton* --root debian/tmp
+	
+# thirdly called by launchpad
+binary: binary-indep binary-arch
+
+binary-indep:
+	# nothing to be done
+
+# cmake runs the install script it generated at build stage
+binary-arch:
+	# cd $(BUILDDIR); cmake -P cmake_install.cmake
+	cd $(BUILDDIR);
+	mkdir -p debian/tmp/DEBIAN
+	cp -f debian/postinst debian/tmp/DEBIAN/
+	dpkg-gencontrol -pskeleton
+	dpkg --build debian/tmp ..
+
+package: build
+	cd $(BUILDDIR);
+	mkdir -p debian/tmp/DEBIAN
+	cp -f debian/postinst debian/tmp/DEBIAN/
+	dpkg-gencontrol -pskeleton
+	dpkg --build debian/tmp .
+	# check file contents with : dpkg --contents filename.deb
+	
+# firstly called by launchpad
+clean:
+	rm -rf $(BUILDDIR)
+	rm -rf $(MAINDIR)/debian/tmp
+
+.PHONY: binary binary-arch binary-indep clean build

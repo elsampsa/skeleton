@@ -6,7 +6,7 @@ fi
 # mod python files: TODO: you might need to edit this
 find -name "*.py" -exec sed -i -r "s/@version .*/@version $1.$2.$3 /g" {} \;
 
-fs="docs/*"
+fs="setup.py docs/*"
 for f in $fs
 do
   find $f -exec sed -i -r "s/version = '.*'/version = '$1.$2.$3'/g" {} \;
