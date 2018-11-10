@@ -10,7 +10,7 @@ echo initializing project $name
 mv skeleton $name
 # replace project names
 
-fs="MANIFEST.in README.md setup.py $name/* docs/*"
+fs="MANIFEST.in README.md setup.py $name/* docs/* debian/*"
 for f in $fs
 do
   find $f -exec sed -i -r "s/skeleton/$name/g" {} \;
