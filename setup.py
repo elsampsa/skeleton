@@ -20,6 +20,18 @@ class PostInstallCommand(install):
 # The following line is modified by setver.bash
 version = '0.0.0'
 
+ext = Extension("_sharedmem", 
+            sources             =["cpp/sharedmem.i", "cpp/sharedmem.cpp"], 
+            # include_dirs        = [getstdout("pkg-config --cflags python"), "./cpp"], # -I flags for python are automatic
+            include_dirs        = ["./cpp"],
+            extra_compile_args  = ["-std=c++11"],
+            # extra_link_args     = [getstdout("pkg-config --libs python3")], # -l flags for python are automatic
+            libraries           = [],
+            swig_opts           = ["-c++", "-I ./cpp"]
+        )
+
+ext_modules = [ext]
+
 # # https://setuptools.readthedocs.io/en/latest/setuptools.html#basic-use
 setup(
     name = "skeleton",
@@ -33,6 +45,22 @@ setup(
     include_package_data=True, # # conclusion: NEVER forget this : files get included but not installed
     # # "package_data" keyword is a practical joke: use MANIFEST.in instead
     
+    # # WARNING: If you are using namespace packages, automatic package finding does not work, so use this:
+    #packages=[
+    #    'skeleton.subpackage1'
+    #],
+    
+    #scripts=[
+    #    "bin/somescript"
+    #],
+
+    # # "entry points" get installed into $HOME/.local/bin
+    # # https://unix.stackexchange.com/questions/316765/which-distributions-have-home-local-bin-in-path
+    #entry_points={
+    #    'console_scripts': [
+    #        'my-command = skeleton.subpackage1.cli:main' # this would create a command "my-command" that maps to skeleton.subpackage1.cli method "main"
+    #    ]
+    #},
     
     # # enable this if you need to run a post-install script:
     #cmdclass={
@@ -76,5 +104,5 @@ setup(
     #project_urls={ # some additional urls
     #    'Tutorial': 'https://elsampsa.github.io/skeleton/'
     #},
-    # ext_modules=ext_modules # external modules
+    ext_modules = ext_modules # external modules
 )

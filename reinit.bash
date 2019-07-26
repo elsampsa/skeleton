@@ -26,3 +26,8 @@ cd ..
 # decouple from git
 rm -rf .git .gitignore
 
+if [ "$#" -eq 2 ]; then
+    echo "Initializing to namespace "$1"."$2
+    mkdir -p $1
+    mv $name $1/$2
+fi

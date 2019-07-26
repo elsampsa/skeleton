@@ -253,6 +253,46 @@ Here are some possibilities:
 
   * See how this is managed in the :ref:`Getting started <started>` section
 
+  
+Organize with namespaces
+------------------------
+
+You can also organize your module under namespaces.  Read more about it `here <https://packaging.python.org/guides/packaging-namespace-packages/>`_.
+
+Let's assume two modules
+
+::
+
+    namespace_subpackage1/
+        setup.py            Remember that automatic package finder does not work for namespace packages
+        etc.
+        namespace/          Keep this directory empty
+            subpackage1/        
+                __init__.py
+                submodule1
+                submodule2
+                
+    
+The other one being
+
+::
+
+    namespace_subpackage2/
+        setup.py            Remember that automatic package finder does not work for namespace packages
+        etc.
+        namespace/          Keep this directory empty
+            subpackage2/
+                __init__.py
+                submodule1
+                submodule2
+                
+Once installed, the following works:
+
+::
+
+    from namespace.subpackage1 import something
+    from namespace.subpackage2 import something_else
+                
 
 Code Organization
 -----------------

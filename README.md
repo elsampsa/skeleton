@@ -16,11 +16,10 @@ For documentation, click [here](https://elsampsa.github.io/skeleton)
 
 Use the following commands:
 
-    cd ~/python3_packages
     git clone https://[name of your git repo]/skeleton
     cd skeleton
-    ln -s $PWD/skeleton $PYTHONPATH/
-
+    pip3 install --user --upgrade -e .
+    
 After that, you can access the documentation with:
     
     firefox docs/index.html
@@ -29,11 +28,11 @@ After that, you can access the documentation with:
 
 Use pip for python2 and pip3 for python3.  For pip, you might have to use sudo.
 
-    pip3 install git+git://[name of your git repo]/skeleton
+    pip3 install --user --upgrade git+git://[name of your git repo]/skeleton
 
 To install a specific version, use
 
-    pip3 install git+git://[name of your git repo]/skeleton@version_tag
+    pip3 install --user --upgrade git+git://[name of your git repo]/skeleton@version_tag
 
 -->
 
@@ -42,7 +41,7 @@ To install a specific version, use
 Sampsa Riikonen
 
 ## Copyright
-(C) 2017 Sampsa Riikonen
+(C) 2017-2018 Sampsa Riikonen
 
 ## License
 MIT
