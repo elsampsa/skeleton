@@ -12,7 +12,7 @@ Skeleton example library is free software: you can redistribute it and/or modify
 """
 import sys
 from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3
-pre_mod = "skeleton.greeters.base : " # a string for aux debugging
+import logging
 
 
 # If I remember correctly, in python3 all classes are automatically children of object
@@ -28,11 +28,11 @@ class BaseHelloWorld(object):
   
   
   def __init__(self, **kwargs):
-    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    self.pre = self.__class__.__name__ # auxiliary string for debugging output
     # print(self.pre,"__init__ : parameter_defs : ",self.parameter_defs)
-    parameterInitCheck(self.parameter_defs,kwargs,self) # check kwargs agains parameter_defs, attach ok'd parameters to this object as attributes
-    # .. now we can access self.person
-    # print(self.pre,"__init__","leaving constructor") # an auxiliary debug string
+    parameterInitCheck(self.parameter_defs, kwargs, self) # check kwargs agains parameter_defs, attach ok'd parameters to this object as attributes
+    self.logger = getLogger(self.pre) # hierarchical logger
+    self.logger.debug("__init__ : hello")
     
     
   def __str__(self):
@@ -43,7 +43,7 @@ class BaseHelloWorld(object):
 def test1():
   """Test BaseHelloWorld
   """
-  pre=pre_mod+"test1 :"
+  pre = __name__ + "test1 :"
   print(pre,"test1")
   print(pre,"description of test 1")
   

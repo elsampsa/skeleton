@@ -13,9 +13,8 @@ Skeleton example library is free software: you can redistribute it and/or modify
 __all__=["FancyHelloWorld","FancyHelloWorld2","FancyHelloWorld3","FancyHelloWorld4","FancyHelloWorld5"] # this declares what is exposed for the API user in the "from skeleton import .." namespace
 
 import sys
-from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3
+from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3, getLogger
 from skeleton.greeters.base import BaseHelloWorld # it's good to use the absolute paths here (API user could use simply "from skeleton.greeters import BaseHelloWorld")
-pre_mod = "skeleton.greeters.fancy : " # a string for aux debuggin purposes
 
 
 class FancyHelloWorld(BaseHelloWorld):
@@ -30,10 +29,11 @@ class FancyHelloWorld(BaseHelloWorld):
     # super().__init__(**kwargs) # python3
     # super(FancyHelloWorld, self).__init__(**kwargs) # python2 compatible
     
-    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    self.pre=self.__class__.__name__ # auxiliary string for debugging output
     parameterInitCheck(self.parameter_defs,kwargs,self) # check kwargs agains parameter_defs, attach ok'd parameters to this object as attributes
-    # print(self.pre,"__init__","leaving constructor") # auxiliary debug string
-        
+    self.logger = getLogger(self.pre) # hierarchical logger
+    self.logger.debug("__init__ : hello")
+    
     
   def __str__(self):
     st ="**************\n"
@@ -61,9 +61,10 @@ class FancyHelloWorld2(BaseHelloWorld):
   
   
   def __init__(self, **kwargs):
-    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    self.pre=self.__class__.__name__ # auxiliary string for debugging output
     parameterInitCheck(self.parameter_defs,kwargs,self) # check for input parameters
-    
+    self.logger = getLogger(self.pre) # hierarchical logger
+    self.logger.debug("__init__ : hello")
     
   def __str__(self): # an example how to print all defined attributes
     st ="**************\n"
@@ -113,8 +114,11 @@ class FancyHelloWorld3(FancyHelloWorld):
   
   
   def __init__(self, **kwargs):
-    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    self.pre=self.__class__.__name__ # auxiliary string for debugging output
     parameterInitCheck(self.parameter_defs,kwargs,self) # check for input parameters
+    self.logger = getLogger(self.pre) # hierarchical logger
+    self.logger.debug("__init__ : hello")
+    
 
 
 
@@ -152,8 +156,11 @@ class FancyHelloWorld4(FancyHelloWorld):
   
   
   def __init__(self, **kwargs):
-    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    self.pre=self.__class__.__name__ # auxiliary string for debugging output
     parameterInitCheck(self.parameter_defs,kwargs,self) # check for input parameters
+    self.logger = getLogger(self.pre) # hierarchical logger
+    self.logger.debug("__init__ : hello")
+    
 
 
 
@@ -177,16 +184,18 @@ class FancyHelloWorld5(FancyHelloWorld):
   
   
   def __init__(self, **kwargs):
-    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
+    self.pre=self.__class__.__name__ # auxiliary string for debugging output
     parameterInitCheck(self.parameter_defs,kwargs,self) # check for input parameters
-
+    self.logger = getLogger(self.pre) # hierarchical logger
+    self.logger.debug("__init__ : hello")
+    
 
 
     
 def test1():
   """ Test FancyHelloWorld2
   """
-  pre=pre_mod+"test1 :"
+  pre=__name__+"test1 :"
   
   print(pre,"test1")
   print(pre,"Let's test FancyHelloWorlds")
@@ -283,18 +292,18 @@ def test1():
   
 
 
-# this rest is just broilerplate .. copy it to your new module ! :)
+# this rest is just boilerplate .. copy it to your new module ! :)
 def test2():
-  """ Test broilerplate
+  """ Test boilerplate
   """
-  pre=pre_mod+"test2 :"
+  pre=__name__+"test2 :"
   print(pre,"test2")
   print(pre,"description of test 2")
 
     
 def main():
   import sys
-  pre=pre_mod+"main :"
+  pre=__name__+"main :"
   print(pre,"main: arguments: ",sys.argv)
   if (len(sys.argv)<2):
     print(pre,"main: needs test number")

@@ -16,10 +16,38 @@ import types
 import sys
 import os
 import inspect
-
+import logging
 
 is_py3 = (sys.version_info >= (3,0))
 
+loggers = {}
+
+def getLogger(name):
+    """If logger already instantiated, return it.  Otherwise call logging.getLogger.
+    """
+    global loggers
+    logger = loggers.get(name)
+    if logger: return logger
+
+    # https://docs.python.org/2/howto/logging.html
+    # log levels here : https://docs.python.org/2/howto/logging.html#when-to-use-logging
+    # in the future, migrate this to a logger config file
+    # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+    """ # use external config
+    formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+    ch = logging.StreamHandler()
+    ch.setFormatter(formatter)
+    """
+    
+    logger = logging.getLogger(name)
+    loggers[name] = logger 
+    
+    # logger.setLevel(level) # use external config
+    # logger.addHandler(ch) # use external config
+    
+    return logger
+    
 
 def getModulePath():
   lis=inspect.getabsfile(inspect.currentframe()).split("/")

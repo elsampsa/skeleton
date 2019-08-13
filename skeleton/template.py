@@ -10,11 +10,9 @@ This file is part of the skeleton library
 
 [copy-paste your license here]
 """
-
 import sys
-from skeleton.tools import typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck
-pre_mod = "module.submodule : " # a string for aux debuggin purposes
-
+from skeleton.tools import typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, getLogger
+import logging
 
 class EmptyClass(object):
   """An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~vainu_ner.greeters.base.BaseHelloWorld`
@@ -36,31 +34,32 @@ class EmptyClass(object):
 
     
   def __init__(self,**kwargs):
-    self.pre=self.__class__.__name__+" : " # auxiliary string for debugging output
-    parameterInitCheck(self.parameter_defs,kwargs,self) # check kwargs agains parameter_defs, attach ok'd parameters to this object as attributes
+    self.pre = self.__class__.__name__ # auxiliary string for debugging output
+    self.logger = getLogger(self.pre) # hierarchical logger
+    parameterInitCheck(self.parameter_defs, kwargs, self) # check kwargs agains parameter_defs, attach ok'd parameters to this object as attributes
 
     
 def test1():
   st="""Empty test
   """
-  pre=pre_mod+"test1 :"
+  pre = __name__ + "test1 :"
   print(pre,st)
   
 
 def test2():
   st="""Empty test
   """
-  pre=pre_mod+"test2 :"
+  pre = __name__ + "test2 :"
   print(pre,st)
   
 
 def main():
-  pre=pre_mod+"main :"
-  print(pre,"main: arguments: ",sys.argv)
+  pre = pre_mod+"main :"
+  print(pre, "main: arguments: ", sys.argv)
   if (len(sys.argv)<2):
-    print(pre,"main: needs test number")
+    print(pre, "main: needs test number")
   else:
-    st="test"+str(sys.argv[1])+"()"
+    st="test" + str(sys.argv[1]) + "()"
     exec(st)
   
   
