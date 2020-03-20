@@ -10,59 +10,30 @@ This file is part of the skeleton library
 
 [copy-paste your license here]
 """
-import sys
-from skeleton.tools import typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, getLogger
-import logging
 
-class EmptyClass(object):
-  """An example of how to make an API.  Initialization done using kwargs.  Inherited from :class:`~vainu_ner.greeters.base.BaseHelloWorld`
-  
-  API checks for input types: here we have a complex object type as an input parameter
-  
-  :param person: person's name : string, mandatory
-  :param address: person's name : string, optional, default value = "nothing"
-  :param age: person's age : integer, optional, default value = 0
-  :param subgreeter: an object of the type :class:`~vainu_ner.greeters.fancy.FancyHelloWorld`
-  
-  """
-  parameter_defs={
-    "person"     : str,             # :param person: person's name : string, mandatory
-    "address"    : (str,"nothing"), # :param address: person's name : string, optional, default value = "nothing"
-    "age"        : (int,0),         # :param age: person's age : integer, optional, default value = 0
-    "subgreeter" : FancyHelloWorld  # :param subgreeter: an object of the type :class:`~vainu_ner.greeters.fancy.FancyHelloWorld`
-    }
-
-    
-  def __init__(self,**kwargs):
-    self.pre = self.__class__.__name__ # auxiliary string for debugging output
-    self.logger = getLogger(self.pre) # hierarchical logger
-    parameterInitCheck(self.parameter_defs, kwargs, self) # check kwargs agains parameter_defs, attach ok'd parameters to this object as attributes
-
-    
 def test1():
-  st="""Empty test
+    st = """Empty test
   """
-  pre = __name__ + "test1 :"
-  print(pre,st)
-  
+    pre = __name__ + "test1 :"
+    print(pre, st)
+
 
 def test2():
-  st="""Empty test
+    st = """Empty test
   """
-  pre = __name__ + "test2 :"
-  print(pre,st)
-  
+    pre = __name__ + "test2 :"
+    print(pre, st)
+
 
 def main():
-  pre = pre_mod+"main :"
-  print(pre, "main: arguments: ", sys.argv)
-  if (len(sys.argv)<2):
-    print(pre, "main: needs test number")
-  else:
-    st="test" + str(sys.argv[1]) + "()"
-    exec(st)
-  
-  
-if (__name__=="__main__"):
-  main()
+    pre = pre_mod + "main :"
+    print(pre, "main: arguments: ", sys.argv)
+    if (len(sys.argv) < 2):
+        print(pre, "main: needs test number")
+    else:
+        st = "test" + str(sys.argv[1]) + "()"
+        exec(st)
 
+
+if (__name__ == "__main__"):
+    main()

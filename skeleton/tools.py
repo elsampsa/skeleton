@@ -2,13 +2,15 @@
 tools.py : tool functions
 
 * Copyright : 2017 Sampsa Riikonen
-* Authors  : Sampsa Riikonen
-* Date     : 2017
-* Version  : 0.1
+* Authors   : Sampsa Riikonen
+* Date      : 2017
+* Version   : 0.1
 
 This file is part of the python skeleton example library
 
-Skeleton example library is free software: you can redistribute it and/or modify it under the terms of the MIT License.  This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the MIT License for more details.
+Skeleton example library is free software: you can redistribute it and/or modify it under the terms of the MIT License.  
+This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+See the MIT License for more details.
 """
 
 import copy
@@ -18,9 +20,44 @@ import os
 import inspect
 import logging
 
+from . import local
+from . import constant
+
 is_py3 = (sys.version_info >= (3,0))
 
 loggers = {}
+
+
+def configureLogging():
+    """Define logging & loglevels using an external yaml config file
+    """
+    # this was useful: https://gist.github.com/glenfant/4358668
+    from local import AppLocalDir
+
+    log_config_dir = AppLocalDir("logging")
+    # now we have directory "~/.skeleton/logging"
+
+    if not log_config_dir.has("default.yml"):
+        print("WARNING: initializing logger configuration")
+        f = open(log_config_dir.getFilePath("default.yml"),"w")
+        f.write(constant.LOGGING_CONF_YAML_DEFAULT)
+        f.close()
+        # now we have "~/.skeleton/logging/default.yml"
+
+    # read "~/.skeleton/logging/default.yml"
+    f = open(log_config_dir.getFilePath("default.yml"),"r")
+    logging_str = f.read()
+    f.close()
+    
+    try:
+        logging_config = yaml.load(logging_str)
+        logging.config.dictConfig(logging_config['logging'])
+    except Exception as e:
+        print("FATAL : your logging configuration is broken")
+        print("FATAL : failed with %s" % (str(e)))
+        print("FATAL : remove it and start the program again")
+        raise SystemExit(2)
+
 
 def getLogger(name):
     """If logger already instantiated, return it.  Otherwise call logging.getLogger.
@@ -29,23 +66,9 @@ def getLogger(name):
     logger = loggers.get(name)
     if logger: return logger
 
-    # https://docs.python.org/2/howto/logging.html
-    # log levels here : https://docs.python.org/2/howto/logging.html#when-to-use-logging
-    # in the future, migrate this to a logger config file
-    # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-    """ # use external config
-    formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-    ch = logging.StreamHandler()
-    ch.setFormatter(formatter)
-    """
-    
     logger = logging.getLogger(name)
     loggers[name] = logger 
-    
-    # logger.setLevel(level) # use external config
-    # logger.addHandler(ch) # use external config
-    
+        
     return logger
     
 
