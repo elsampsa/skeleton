@@ -1,0 +1,8 @@
+__pycache__/
+/build/
+/dist/
+/venv/
+*.egg-info/
+_sharedmem.cpython*
+/cpp/sharedmem.py
+/cpp/sharedmem_wrap.cpp

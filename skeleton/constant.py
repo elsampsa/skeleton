@@ -46,3 +46,23 @@ logging:
             format: '%(name)s - %(levelname)s - %(message)s'
             datefmt: '%d/%m/%Y %H:%M:%S'
 """
+
+default_ini = """\
+[DEFAULT]
+ServerAliveInterval = 45
+Compression = yes
+CompressionLevel = 9
+ForwardX11 = yes
+
+[bitbucket.org]
+User = hg
+
+[topsecret.server.com]
+Port = 50022
+ForwardX11 = no
+
+[logger_skeleton]
+level = DEBUG
+handlers =
+qualname = skeleton
+"""

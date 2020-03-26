@@ -1,11 +1,12 @@
 #!/bin/bash
-# clean python bytecode
+## most of these should be done through .gitignore
+## clean python bytecode
 find . -name "__pycache__" -exec rm -rf {} \;
 find . -name "*.pyc" -exec rm -rf {} \;
-# python autodoc clean:
+## python autodoc clean:
 find . -name "*.pickle" -exec rm -rf {} \;
-# clean python build
+## clean python build
 rm -rf dist
 rm -rf build
-rm -rf *.egg-info
+# rm -rf *.egg-info
 rm -f *.deb
