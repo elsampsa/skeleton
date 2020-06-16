@@ -66,12 +66,12 @@ your_command [options] command
         --ini   ini configuration file.
 
     """)
-    parser.register('type','bool',str2bool)
+    # parser.register('type','bool',str2bool)  # this works only in theory..
 
     parser.add_argument("command", action="store", type=str,                 
                         help="mandatory command")
 
-    parser.add_argument("--nice", action="store", type=bool, required=False, default=False,
+    parser.add_argument("--nice", action="store", type=str2bool, required=False, default=False,
                         help="Be nice")
 
     parser.add_argument("--ini", action="store", type=str, required=False, default=None,
