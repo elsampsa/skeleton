@@ -18,21 +18,6 @@ from skeleton.constant import default_ini
 
 
 def set_logging(command, options, config):
-    """
-    print("got commands", args)
-    config = kwargs["config"]
-    print("with config", config)
-
-    l = config["DEFAULT"]
-    print(l)
-    print(l["ServerAliveInterval"])
-
-    l = config["logger_skeleton"]
-    print(l)
-
-    l = config["bitbucket.org"]
-    print(l["User"])
-    """
     for key in config.keys():
         if "logger_" in key:
             pars = config[key]
@@ -49,12 +34,13 @@ def set_logging(command, options, config):
                 ch.setFormatter(formatter)    
                 logger.addHandler(ch)
 
-    """
     ## now, anywhere in your code, do this:
     logger = logging.getLogger("skeleton")
     logger.debug("debug")
     logger.info("info")
-    """
+
+    l = config["DEFAULT"]
+    logger.info("ServerAliveInterval %s", l["ServerAliveInterval"])
 
     ## could chain more config / option handling here
     ## next, proceed to the actual entry point of your app

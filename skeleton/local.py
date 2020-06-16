@@ -45,8 +45,8 @@ class LocalDir:
         except Exception as e:
             pass
 
-    def has(self):
-        return os.path.exists(self.dirname)
+    def has(self, fname):
+        return os.path.exists(os.path.join(self.dirname, fname))
 
     def getFile(self, fname):
         return os.path.join(self.dirname, fname)

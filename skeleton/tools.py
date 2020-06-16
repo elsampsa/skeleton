@@ -19,6 +19,8 @@ import sys
 import os
 import inspect
 import logging
+import logging.config
+import yaml
 
 from . import local
 from . import constant
@@ -32,20 +34,20 @@ def configureLogging():
     """Define logging & loglevels using an external yaml config file
     """
     # this was useful: https://gist.github.com/glenfant/4358668
-    from local import AppLocalDir
+    from .local import AppLocalDir
 
     log_config_dir = AppLocalDir("logging")
     # now we have directory "~/.skeleton/logging"
 
     if not log_config_dir.has("default.yml"):
         print("WARNING: initializing logger configuration")
-        f = open(log_config_dir.getFilePath("default.yml"),"w")
+        f = open(log_config_dir.getFile("default.yml"),"w")
         f.write(constant.LOGGING_CONF_YAML_DEFAULT)
         f.close()
         # now we have "~/.skeleton/logging/default.yml"
 
     # read "~/.skeleton/logging/default.yml"
-    f = open(log_config_dir.getFilePath("default.yml"),"r")
+    f = open(log_config_dir.getFile("default.yml"),"r")
     logging_str = f.read()
     f.close()
     
