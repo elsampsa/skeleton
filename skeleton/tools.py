@@ -41,9 +41,8 @@ def configureLogging():
 
     if not log_config_dir.has("default.yml"):
         print("WARNING: initializing logger configuration")
-        f = open(log_config_dir.getFile("default.yml"),"w")
-        f.write(constant.LOGGING_CONF_YAML_DEFAULT)
-        f.close()
+        with open(log_config_dir.getFile("default.yml"),"w") as f:
+            f.write(constant.LOGGING_CONF_YAML_DEFAULT)
         # now we have "~/.skeleton/logging/default.yml"
 
     # read "~/.skeleton/logging/default.yml"
@@ -52,7 +51,7 @@ def configureLogging():
     f.close()
     
     try:
-        logging_config = yaml.load(logging_str)
+        logging_config = yaml.load(logging_str, Loader=yaml.FullLoader)
         logging.config.dictConfig(logging_config['logging'])
     except Exception as e:
         print("FATAL : your logging configuration is broken")

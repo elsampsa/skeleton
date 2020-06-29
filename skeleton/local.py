@@ -51,6 +51,12 @@ class LocalDir:
     def getFile(self, fname):
         return os.path.join(self.dirname, fname)
 
+    def getFileIf(self, fname):
+        if self.has(fname):
+            return self.getFile(fname)
+        else:
+            return None
+
 
 class AppLocalDir(LocalDir):
     basedir = ".skeleton"
