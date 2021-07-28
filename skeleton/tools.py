@@ -73,6 +73,21 @@ def getLogger(name):
     return logger
     
 
+def confLogger(logger, level):
+    logger.setLevel(level)
+    if not logger.hasHandlers():
+        formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+        ch = logging.StreamHandler()
+        ch.setFormatter(formatter)    
+        logger.addHandler(ch)
+
+
+def quickLog(name, level):
+    logger = getLogger(name)
+    confLogger(logger, level)
+    return logger
+
+
 def getModulePath():
   lis=inspect.getabsfile(inspect.currentframe()).split("/")
   st="/"

@@ -8,6 +8,8 @@ Base your python package on this template and you will get neatly organized pyth
 
 For documentation, click [here](https://elsampsa.github.io/skeleton)
 
+If you are using windows, check [this](windows.md) out.
+
 <!--- Once you have created your own python package and uploaded it into git(hub), uncomment this section 
 
 ## Installing

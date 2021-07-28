@@ -15,6 +15,7 @@ import argparse
 import configparser # https://docs.python.org/3/library/configparser.html
 from skeleton.main import app
 from skeleton.constant import default_ini
+from skeleton.tools import getLogger, confLogger
 
 
 def set_logging(command, options, config):
@@ -24,15 +25,9 @@ def set_logging(command, options, config):
             qualname = pars["qualname"]
             levelstr = pars["level"]
             level = getattr(logging, levelstr)
-            
-            logger = logging.getLogger(qualname)
-            logger.setLevel(level)
-
-            if not logger.hasHandlers():
-                formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-                ch = logging.StreamHandler()
-                ch.setFormatter(formatter)    
-                logger.addHandler(ch)
+            # logger = logging.getLogger(qualname)
+            getLogger(qualname)
+            confLogger(logger, level)
 
     ## now, anywhere in your code, do this:
     logger = logging.getLogger("skeleton")
@@ -98,6 +93,12 @@ def main():
         set_logging(parsed.command, parsed, cf)
     else:
         print("unknown command", parsed.command)
+
+    # logging without ini:
+    """
+    logger = getLogger("name.space")
+    confLogger(logger, logging.INFO)
+    """
 
 
 if (__name__ == "__main__"):

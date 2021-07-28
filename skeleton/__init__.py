@@ -1,7 +1,7 @@
 __all__=["greeters"]
 
 # ***
-# *** Use __init__.py to expose different parts of the submodules in the desired namespace
+# *** Use __init__.py to expose different parts of the submodules
 # ***
 
 # *** Define what can be seen in the main "skeleton." namespace (as this is skeleton/__init__.py) like this:

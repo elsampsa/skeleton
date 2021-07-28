@@ -1,7 +1,7 @@
 # it's good to use the absolute paths here (API user could use simply
-# "from skeleton.greeters import BaseHelloWorld")
-from skeleton.greeters.base import BaseHelloWorld
-from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3
+# "from my_test_package.greeters import BaseHelloWorld")
+from my_test_package.greeters.base import BaseHelloWorld
+from my_test_package.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3
 import sys
 """
 cool2.py : cooler greeter classes, part 2.
@@ -11,13 +11,13 @@ cool2.py : cooler greeter classes, part 2.
 * Date     : 2017
 * Version  : 0.1
 
-This file is part of the python skeleton example library
+This file is part of the python my_test_package example library
 
 Skeleton example library is free software: you can redistribute it and/or modify it under the terms of the MIT License.  This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the MIT License for more details.
 """
 __all__ = ["Cool2HelloWorld"]
 
-pre_mod = "skeleton.greeters.cool1 : "  # a string for aux debuggin purposes
+pre_mod = "my_test_package.greeters.cool1 : "  # a string for aux debuggin purposes
 
 
 class Cool2HelloWorld(BaseHelloWorld):
@@ -37,16 +37,20 @@ class Cool2HelloWorld(BaseHelloWorld):
         self.pre = self.__class__.__name__ + " : "
         # check kwargs agains parameter_defs, attach ok'd parameters to this
         # object as attributes
-        parameterInitCheck(self.parameter_defs, kwargs, self)
+        parameterInitCheck(self.parameter_defs, kwargs, self) # this a bit too fancy.. avoid
         # print(self.pre,"__init__","leaving constructor") # auxiliary debug
         # string
 
     def __str__(self):
         st = "**************\n"
-        st += super(Cool2HelloWorld, self).__str__() + \
+        st += super().__str__() + \
             "\n"  # python2 compatible
         st += "**************\n"
         return st
+
+
+    def someMethod(self):
+        print("hello from someMethod")
 
 
 # this rest is just broilerplate .. copy it to your new module ! :)

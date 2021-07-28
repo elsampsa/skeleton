@@ -36,42 +36,28 @@ Some features:
 For the impatient
 -----------------
 
-Set up your environment (you might have these directories already):
+Let's suppose your name is *Janne Jantunen* and you have decided to create a new package named *your_package_name*.  Proceed like this:
 
 ::
 
-  cd
-  mkdir python3
-  mkdir python3_packages
-
-
-Include python3 into your PYTHONPATH (include this line into your **.bashrc** as well)
-
-::
-
-  export PYTHONPATH=$HOME/python3
-
-
-So, your development python packages are in **~/python3_packages**.  Your name is *Janne Jantunen* and you have decided to create a new package named *your_package_name*.  Proceed like this:
-
-::
-
-    cd ~/python3_packages
     git clone https://github.com/elsampsa/skeleton
     mv skeleton your_package_name
     cd your_package_name
     ./reinit.bash
     ./setauthor.bash "Janne Jantunen"
     ./setver.bash "0.1"
-    ln -s $PWD/your_package_name $HOME/python3
 
-The last line can be substituted with
+Finally, run this command:
 
 ::
 
     pip3 install --user -e .
-  
-The effect is the same - creating a link that allows python to find your package (in the latter case that link is the *$HOME/.local/lib/python3.x/site-packages/skeleton.egg-link* file)
+
+This way your package is installed in the "editable mode" (that extra "-e").  It creates link from the python package directory (in linux, look for *$HOME/.local/lib/python3.x/site-packages/*.egg-link* files) 
+to your local directory.  Now python's package system can find your module.
+
+If you did not use the -e switch, it would simply create a copy of your code and place it into the python package directory and your future changes to the codebase would not
+be updated.
 
 Mod the documentation by editing .rst files in the "docs/" directory.  The idea is that you hide/delete this page ("tutorial.rst") from your own module.
 
@@ -170,9 +156,6 @@ This page has been produced with the file "docs/tutorial.rst".  Go ahead and ope
 
 The scaffolding "double-directory" your_package_name/your_package_name structure might seem inconvenient, but it is necessary for packaging.  Here is what we just did in the :ref:`For the impatient <impatient>` section:
 
-* Keep "scaffolded" python modules in, say "~/python3_packages"
-* Link the python module directories to "~/python3"
-
 It's time to start documenting!  Edit the files "docs/*.rst".  Here are `some nice tips <http://www.sphinx-doc.org/en/stable/rest.html>`_ for using Sphinx and here `are some more <http://www.sphinx-doc.org/en/stable/markup/inline.html>`_
 
 To create and to recreate the docs (after changing the code, etc.), do (in the "docs/" directory):
@@ -214,20 +197,20 @@ Using a generic service that uses a gitlab server?  No problem.  There is a simp
 Organizing large python projects
 --------------------------------
 
-Let's say we have a python project that consists of "entities" and those consist of submodules.  Imagine a web-service of some sort with frontend, backend and some machine_learning behind them:
+Let's say we have a python project that consists of "entities" and those consist of submodules.
 
 .. Some more markup:
 .. the line "|" forces the lines to be breaken explicitly
 .. two stars "**" make boldface, single star italics
 
 **macro_project**
-  *rocket module*
+  *module_A*
     | submodule1
     | submodule2
-  *bicycle module*
+  *module_B*
     | submodule1
     | submodule2
-  *turbo module*
+  *module_C*
     | submodule1
     | submodule2
     
@@ -243,18 +226,7 @@ Here are some possibilities:
 .. Nested lists must be separated with a blank line
   
 2. Each module in a separate repository
-  * Each module should have a maintainer and a well-defined API interface
-  * Development 
-  
-    * Keep the cloned local git repositories at ~/python3_packages (as explained above)
-    
-  * Production
-  
-    * You can use pip3 to install and update the packages directly from the git repository - convenient if the development/production cycle is fast
-    * When installed with pip3 there is no fiddling with paths and symlinks, it just works (if you're interested in details, pip3 installs it under "~/.local/lib")
-
-  * See how this is managed in the :ref:`Getting started <started>` section
-
+  * Each module should have a maintainer/responsable person and a well-defined API
   
 Organize with namespaces
 ------------------------
@@ -299,7 +271,7 @@ Once installed, the following works:
 Code Organization
 -----------------
 
-So, let's get back to this tutorial.  This is a module that has a single submodule called "greeters" that is organized as follows:
+This tutorial comes with a module that has a single submodule called "greeters" that is organized as follows:
 
 .. remember: "|" forces line-breaks
 
@@ -322,7 +294,8 @@ instead of the cumbersome
   from your_package_name.fancy.greeters import UberFancyHelloWorld
   
 
-(also, the api user should not be bothered with the internal inheritance, etc.)
+In general, use ``__init__.py`` only for exposing your API.  Do not write any classes or
+method there.
 
 So, I suggest you open in your editor all files of the "greeters" submodule and study them a bit.
 
@@ -355,7 +328,7 @@ If you have done everything as instructed here, creating a distributable python 
 
 ::
 
-  cd ~/python3_packages/your_package_name
+  cd your_package_name
   python3 setup.py sdist
 
   
@@ -487,6 +460,17 @@ The following python code can be downloaded from :download:`[here]<snippets/exam
 
 Check out directory "docs/snippets/".  It serves as a collection for small example programs.  Open and edit "form_snippets.bash" there.  You can then run it.  Remember to recompile the documentation once you've run that script.
 
+
+Notebooks
+---------
+
+Go to directory ``notebook`` and run there:
+
+::
+
+    jupyter notebook
+
+Open the "example" notebook.  Observe how neatly you can do interactive code development with notebooks.
 
   
 Miscellaneous

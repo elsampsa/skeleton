@@ -6,3 +6,5 @@ __pycache__/
 _sharedmem.cpython*
 /cpp/sharedmem.py
 /cpp/sharedmem_wrap.cpp
+.ipynb_checkpoints/
+Untitled*.ipynb
