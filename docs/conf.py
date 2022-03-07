@@ -130,8 +130,8 @@ todo_include_todos = True
 # a list of builtin themes.
 
 # html_theme = "classic" # old'n'ugly theme
-html_theme="sphinx_rtd_theme" # you might need to install with pip3
-# html_theme = 'alabaster' # nice
+# html_theme="sphinx_rtd_theme" # you might need to install with pip3
+html_theme = 'alabaster' # nice
 
 # some options for the classic theme
 """
@@ -158,10 +158,15 @@ html_theme_options = {
   'github_user'  : 'elsampsa',
   'github_repo'  : 'skeleton',
   # 'analytics_id' : 'XX-XXX-X' # for google analytics tracking, uncomment this
+  'page_width' : '60%', # these are nice for making the page wider
+  'body_max_width': 'auto'
 }
 """
-
-
+# google-analytics instructions:
+# go to analytics.google.com => administrator => create new asset
+# finally you get a tag what you insert there as the value
+# for that 'analytics_id' key
+# the tag value is typically something like "X-XXXXXXXXXX"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

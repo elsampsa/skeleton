@@ -1,7 +1,8 @@
 # it's good to use the absolute paths here (API user could use simply
 # "from skeleton.greeters import BaseHelloWorld")
+import logging
 from skeleton.greeters.base import BaseHelloWorld
-from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3, getLogger
+from skeleton.tools import getDataFile, typeCheck, dictionaryCheck, objectCheck, parameterInitCheck, noCheck, is_py3
 import sys
 """
 fancy.py : fancier greeter classes.  This demonstrates how to build APIs that check input parameters.
@@ -40,7 +41,7 @@ class FancyHelloWorld(BaseHelloWorld):
         # check kwargs agains parameter_defs, attach ok'd parameters to this
         # object as attributes
         parameterInitCheck(self.parameter_defs, kwargs, self)
-        self.logger = getLogger(self.pre)  # hierarchical logger
+        self.logger = logging.getLogger(self.pre)  # hierarchical logger
         self.logger.debug("__init__ : hello")
 
     def __str__(self):

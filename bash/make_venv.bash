@@ -1,6 +1,7 @@
 #!/bin/bash
 rm -r -f venv
-virtualenv --no-site-packages -p python3 venv
+# virtualenv --no-site-packages -p python3 venv
+virtualenv -p python3 venv
 echo
 echo "> Do this"
 echo "cd venv"

@@ -5,12 +5,15 @@ skeleton.greeters.base
 
    
    
+   
+
+   
+   
    .. rubric:: Functions
 
    .. autosummary::
    
       main
-      parameterInitCheck
       test1
       test2
    
@@ -29,3 +32,6 @@ skeleton.greeters.base
    
    
    
+
+
+

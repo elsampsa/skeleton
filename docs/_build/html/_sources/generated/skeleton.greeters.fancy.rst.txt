@@ -5,14 +5,15 @@ skeleton.greeters.fancy
 
    
    
+   
+
+   
+   
    .. rubric:: Functions
 
    .. autosummary::
    
       main
-      noCheck
-      objectCheck
-      parameterInitCheck
       test1
       test2
    
@@ -24,7 +25,6 @@ skeleton.greeters.fancy
 
    .. autosummary::
    
-      BaseHelloWorld
       FancyHelloWorld
       FancyHelloWorld2
       FancyHelloWorld3
@@ -36,3 +36,6 @@ skeleton.greeters.fancy
    
    
    
+
+
+

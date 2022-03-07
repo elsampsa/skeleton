@@ -14,32 +14,9 @@ import logging
 import argparse
 import configparser # https://docs.python.org/3/library/configparser.html
 from skeleton.main import app
-from skeleton.constant import default_ini
-from skeleton.tools import getLogger, confLogger
-
-
-def set_logging(command, options, config):
-    for key in config.keys():
-        if "logger_" in key:
-            pars = config[key]
-            qualname = pars["qualname"]
-            levelstr = pars["level"]
-            level = getattr(logging, levelstr)
-            # logger = logging.getLogger(qualname)
-            getLogger(qualname)
-            confLogger(logger, level)
-
-    ## now, anywhere in your code, do this:
-    logger = logging.getLogger("skeleton")
-    logger.debug("debug")
-    logger.info("info")
-
-    l = config["DEFAULT"]
-    logger.info("ServerAliveInterval %s", l["ServerAliveInterval"])
-
-    ## could chain more config / option handling here
-    ## next, proceed to the actual entry point of your app
-    app(command, options, config)
+from skeleton import constant
+from skeleton.tools import confLogger
+from skeleton.local import AppLocalDir
 
 
 def process_cl_args():
@@ -57,9 +34,10 @@ your_command [options] command
 
     options:
 
-        --nice  Be nice or not.  Default true.
-        --ini   ini configuration file.
-
+        --nice      Be nice or not.  Needs boolean value.  Default true.
+        --ini       Ini configuration file (optional)
+        --reset     Reset config files (don't specify a value)
+        
     """)
     # parser.register('type','bool',str2bool)  # this works only in theory..
 
@@ -72,6 +50,8 @@ your_command [options] command
     parser.add_argument("--ini", action="store", type=str, required=False, default=None,
                         help=".ini configuration file")
 
+    parser.add_argument('--reset', action='store_true')
+
     parsed_args, unparsed_args = parser.parse_known_args()
     return parsed_args, unparsed_args
 
@@ -79,27 +59,52 @@ your_command [options] command
 def main():
     parsed, unparsed = process_cl_args()
 
-    cf = configparser.ConfigParser()
-    cf.read_string(default_ini)
-
     if parsed.ini is None:
         pass
     else:
-        files = cf.read(parsed.ini)
+        # an example how to set the loggers from an ini file
+        cfg = configparser.ConfigParser()
+        cfg.read(parsed.ini)
+        try:
+            logging.config.fileConfig(cfg, disable_existing_loggers=True)
+        except Exception as e:
+            print("there was error reading your .ini file.  Please check your logger definitions")
+            print("failed with:", e)
+            raise(e)
+        # using ini files
+        # files = cfg.read(parsed.ini)
         # print("read files", files)
+        # accessing variables from ini files:
+        # cfg["DEFAULT"]["somepar"]
 
-    ## some command filtering here
+    # see also how to set logging from a yaml file in tools.py with:
+    # configureLogging()
+    #
+    # or set loglevel manually:
+    """
+    logger = logging.getLogger("name.space")
+    confLogger(logger, logging.INFO)
+    """
+    # some command filtering here
     if parsed.command in ["foo", "bar"]:
-        set_logging(parsed.command, parsed, cf)
+        print("command is", parsed.command)
     else:
         print("unknown command", parsed.command)
 
-    # logging without ini:
-    """
-    logger = getLogger("name.space")
-    confLogger(logger, logging.INFO)
-    """
-
+    # some ideas on how to handle config files & default values
+    #
+    # this directory is ~/.skeleton/some_data/ :
+    # init default data with yaml constant string
+    some_data_dir = AppLocalDir("some_data")
+    if (not some_data_dir.has("some.yaml")) or parsed.reset:
+        with open(some_data_dir.getFile("some.yaml"), "w") as f:
+            f.write(constant.SOME)
+    # init default ParameterSet:
+    if parsed.reset:
+        other_dir = AppLocalDir("some_other_data")
+        with open(other_dir.getFile("default.yml"),"w") as f:
+            f.write(constant.some_parameter_set())
 
 if (__name__ == "__main__"):
     main()
+

@@ -27,8 +27,6 @@ from . import constant
 
 is_py3 = (sys.version_info >= (3,0))
 
-loggers = {}
-
 
 def configureLogging():
     """Define logging & loglevels using an external yaml config file
@@ -60,19 +58,6 @@ def configureLogging():
         raise SystemExit(2)
 
 
-def getLogger(name):
-    """If logger already instantiated, return it.  Otherwise call logging.getLogger.
-    """
-    global loggers
-    logger = loggers.get(name)
-    if logger: return logger
-
-    logger = logging.getLogger(name)
-    loggers[name] = logger 
-        
-    return logger
-    
-
 def confLogger(logger, level):
     logger.setLevel(level)
     if not logger.hasHandlers():
@@ -83,7 +68,7 @@ def confLogger(logger, level):
 
 
 def quickLog(name, level):
-    logger = getLogger(name)
+    logger = logging.getLogger(name)
     confLogger(logger, level)
     return logger
 

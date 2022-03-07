@@ -33,7 +33,7 @@ class LocalDir:
         self.make()
 
     def make(self):
-        if not self.has():
+        if not self.has(self.dirname):
             os.makedirs(self.dirname)
 
     def clear(self):

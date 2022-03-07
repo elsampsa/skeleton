@@ -94,6 +94,7 @@ setup(
         'Operating System :: POSIX :: Linux',
         # 'Topic :: Multimedia :: Video', # set a topic
         # Pick your license as you wish
+        # https://autopilot-docs.readthedocs.io/en/latest/license_list.html
         'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.

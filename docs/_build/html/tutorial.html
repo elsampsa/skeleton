@@ -1,186 +1,36 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Tutorial - start here &mdash; Skeleton 1 documentation</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial - start here &#8212; Skeleton 1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="About this module" href="intro.html" />
-    <link rel="prev" title="Skeleton" href="index.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
+    <link rel="prev" title="Skeleton" href="index.html" />
    
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> Skeleton
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial - start here</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#for-the-impatient">For the impatient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#files">Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#online-autodocumentation">Online autodocumentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#organizing-large-python-projects">Organizing large python projects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#organize-with-namespaces">Organize with namespaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#code-organization">Code Organization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quick-testing">Quick testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#packaging">Packaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#package-testing">Package testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pypi">PyPi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#debian-packaging">Debian packaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#uploading-to-an-ubuntu-ppa">Uploading to an Ubuntu PPA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-snippets">Example snippets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#notebooks">Notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#internal-links">Internal links</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">About this module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="requirements.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="submodules.html">Submodule documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">Licenses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Skeleton</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>Tutorial - start here</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
             
   <span class="target" id="about"></span><div class="section" id="tutorial-start-here">
 <h1>Tutorial - start here<a class="headerlink" href="#tutorial-start-here" title="Permalink to this headline">¶</a></h1>
@@ -236,7 +86,7 @@ be updated.</p>
 <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">--</span><span class="n">tags</span>
 </pre></div>
 </div>
-<p>You can also user the “git_tag.bash” script.</p>
+<p>You can also user the “bash/git_tag.bash” script.</p>
 <p>Now production users can install with pip3 certain revisions of the software (see <a class="reference internal" href="requirements.html#production"><span class="std std-ref">here</span></a>)</p>
 </div>
 <div class="section" id="dependencies">
@@ -267,7 +117,28 @@ be updated.</p>
 <td><p>Python setup script for creating packages</p></td>
 </tr>
 <tr class="row-odd"><td><p>MANIFEST.in</p></td>
-<td><p>used by setup.py</p></td>
+<td><p>Used by setup.py</p></td>
+</tr>
+<tr class="row-even"><td><p>.gitignore</p></td>
+<td><p>Files ignored by git</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p>your_package_name/bash : Some helper scripts</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 89%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>bash/</p></td>
+<td><p>some helper scripts</p></td>
 </tr>
 <tr class="row-even"><td><p>changestr.bash</p></td>
 <td><p>Helper script to change strings in your package</p></td>
@@ -416,48 +287,6 @@ be updated.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="organizing-large-python-projects">
-<h2>Organizing large python projects<a class="headerlink" href="#organizing-large-python-projects" title="Permalink to this headline">¶</a></h2>
-<p>Let’s say we have a python project that consists of “entities” and those consist of submodules.</p>
-<dl>
-<dt><strong>macro_project</strong></dt><dd><dl>
-<dt><em>module_A</em></dt><dd><div class="line-block">
-<div class="line">submodule1</div>
-<div class="line">submodule2</div>
-</div>
-</dd>
-<dt><em>module_B</em></dt><dd><div class="line-block">
-<div class="line">submodule1</div>
-<div class="line">submodule2</div>
-</div>
-</dd>
-<dt><em>module_C</em></dt><dd><div class="line-block">
-<div class="line">submodule1</div>
-<div class="line">submodule2</div>
-</div>
-</dd>
-</dl>
-</dd>
-</dl>
-<p>Here are some possibilities:</p>
-<ol class="arabic simple">
-<li><p>Clusterfuck</p></li>
-</ol>
-<blockquote>
-<div><ul class="simple">
-<li><p>Keep everything in the same repository.  Avoid defining API interfaces.  Everybody can access all code.</p></li>
-<li><p>We have all done this and it’s not a good idea..</p></li>
-</ul>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li><p>Each module in a separate repository</p></li>
-</ol>
-<blockquote>
-<div><ul class="simple">
-<li><p>Each module should have a maintainer/responsable person and a well-defined API</p></li>
-</ul>
-</div></blockquote>
-</div>
 <div class="section" id="organize-with-namespaces">
 <h2>Organize with namespaces<a class="headerlink" href="#organize-with-namespaces" title="Permalink to this headline">¶</a></h2>
 <p>You can also organize your module under namespaces.  Read more about it <a class="reference external" href="https://packaging.python.org/guides/packaging-namespace-packages/">here</a>.</p>
@@ -510,7 +339,11 @@ be updated.</p>
 </div>
 <p>In general, use <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> only for exposing your API.  Do not write any classes or
 method there.</p>
-<p>So, I suggest you open in your editor all files of the “greeters” submodule and study them a bit.</p>
+<p>The file <code class="docutils literal notranslate"><span class="pre">cli.py</span></code> is the command-line entry point for the whole application.  See in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> how
+you can map a command into <code class="docutils literal notranslate"><span class="pre">cli.py</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cli.py</span></code> handles command-line parameters, user-specific config, logging and data files and their
+default values.</p>
+<p><code class="docutils literal notranslate"><span class="pre">main.py</span></code> should be the program itself.</p>
 </div>
 <div class="section" id="quick-testing">
 <h2>Quick testing<a class="headerlink" href="#quick-testing" title="Permalink to this headline">¶</a></h2>
@@ -590,6 +423,13 @@ method there.</p>
 <span class="n">password</span><span class="p">:</span> <span class="n">xxx</span>
 </pre></div>
 </div>
+<p>The modern way to connect safely to pypi, is via a token.  Then the <code class="docutils literal notranslate"><span class="pre">pypi</span></code> section looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">pypi</span><span class="p">]</span>
+<span class="n">username</span> <span class="o">=</span> <span class="n">__token__</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">a_very_long_token</span>
+</pre></div>
+</div>
+<p>Get your token from pypi.org!</p>
 <ol class="arabic simple" start="3">
 <li><p>Install twine</p></li>
 </ol>
@@ -661,51 +501,95 @@ method there.</p>
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="intro.html" class="btn btn-neutral float-right" title="About this module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="Skeleton" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017 Sampsa Riikonen.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
+          
         </div>
       </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Skeleton</a></h1>
 
-    </section>
 
-  </div>
-  
 
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
 
-  
-  
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial - start here</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#for-the-impatient">For the impatient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#files">Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#online-autodocumentation">Online autodocumentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#organize-with-namespaces">Organize with namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-organization">Code Organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-testing">Quick testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#packaging">Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#package-testing">Package testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pypi">PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debian-packaging">Debian packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uploading-to-an-ubuntu-ppa">Uploading to an Ubuntu PPA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-snippets">Example snippets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notebooks">Notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#internal-links">Internal links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">About this module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules.html">Submodule documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Licenses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Skeleton</a></li>
+      <li>Next: <a href="intro.html" title="next chapter">About this module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017 Sampsa Riikonen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/tutorial.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
     
-   
 
-</body>
+    
+  </body>
 </html>

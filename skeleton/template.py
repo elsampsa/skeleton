@@ -10,6 +10,8 @@ This file is part of the skeleton library
 
 [copy-paste your license here]
 """
+import sys
+
 
 def test1():
     st = """Empty test
@@ -26,7 +28,7 @@ def test2():
 
 
 def main():
-    pre = pre_mod + "main :"
+    pre = "main :"
     print(pre, "main: arguments: ", sys.argv)
     if (len(sys.argv) < 2):
         print(pre, "main: needs test number")
@@ -37,3 +39,4 @@ def main():
 
 if (__name__ == "__main__"):
     main()
+

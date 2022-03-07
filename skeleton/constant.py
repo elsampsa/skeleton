@@ -47,6 +47,15 @@ logging:
             datefmt: '%d/%m/%Y %H:%M:%S'
 """
 
+SOME = """\
+%YAML 1.2
+---
+data:
+
+    version:1
+    some: random yaml data
+"""
+
 default_ini = """\
 [DEFAULT]
 ServerAliveInterval = 45
@@ -65,4 +74,34 @@ ForwardX11 = no
 level = DEBUG
 handlers =
 qualname = skeleton
+"""
+
+from .parset import ParameterSet
+
+# this is a nice way to define a large set of default values
+some_parameter_set = ParameterSet(
+    inp_str = """\
+%YAML 1.2
+---
+config:
+    version: 1
+    some_par_1: kikkelis
+    some_par_2: kokkelis
+    main_par:
+        sub_par: 123
+""")
+
+PARS = some_parameter_set.config
+"""you can now access values with:
+
+PARS.some_par_1
+PARS.main_par.sub_par
+
+In your code:
+
+def someFunc(pars: ParameterSet):
+    # pars: some_parameter_set.config from constant.py
+    self.p = pars
+    self.p.some_par_1
+    # etc.
 """

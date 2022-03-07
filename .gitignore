@@ -8,3 +8,4 @@ _sharedmem.cpython*
 /cpp/sharedmem_wrap.cpp
 .ipynb_checkpoints/
 Untitled*.ipynb
+.vscode/

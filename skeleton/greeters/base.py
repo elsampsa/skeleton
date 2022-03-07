@@ -33,7 +33,7 @@ class BaseHelloWorld(object):
         # check kwargs agains parameter_defs, attach ok'd parameters to this
         # object as attributes
         parameterInitCheck(self.parameter_defs, kwargs, self)
-        self.logger = getLogger(self.pre)  # hierarchical logger
+        self.logger = logging.getLogger(self.pre)  # hierarchical logger
         self.logger.debug("__init__ : hello")
 
     def __str__(self):
