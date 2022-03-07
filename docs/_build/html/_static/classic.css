@@ -1,10 +1,10 @@
 /*
- * default.css_t
+ * classic.css_t
  * ~~~~~~~~~~~~~
  *
- * Sphinx stylesheet -- default theme.
+ * Sphinx stylesheet -- classic theme.
  *
- * :copyright: Copyright 2007-2016 by the Sphinx team, see AUTHORS.
+ * :copyright: Copyright 2007-2021 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
  */
@@ -12,6 +12,11 @@
 @import url("basic.css");
 
 /* -- page layout ----------------------------------------------------------- */
+
+html {
+    /* CSS hack for macOS's scrollbar (see #1125) */
+    background-color: #FFFFFF;
+}
 
 body {
     font-family: sans-serif;
@@ -40,9 +45,6 @@ div.body {
     color: #000000;
     padding: 0 20px 30px 20px;
 }
-div.bodywrapper {
-    margin: 0 230px 0 0;
-}
 
 div.footer {
     color: #ffffff;
@@ -58,7 +60,7 @@ div.footer a {
 }
 
 div.related {
-    background-color: black;
+    background-color: #133f52;
     line-height: 30px;
     color: #ffffff;
 }
@@ -68,7 +70,6 @@ div.related a {
 }
 
 div.sphinxsidebar {
-    float: right;
 }
 
 div.sphinxsidebar h3 {
@@ -223,8 +224,8 @@ p.admonition-title:after {
 
 pre {
     padding: 5px;
-    background-color: #eeffcc;
-    color: #333333;
+    background-color: unset;
+    color: unset;
     line-height: 120%;
     border: 1px solid #ac9;
     border-left: none;
@@ -237,7 +238,7 @@ code {
     font-size: 0.95em;
 }
 
-th {
+th, dl.field-list > dt {
     background-color: #ede;
 }
 

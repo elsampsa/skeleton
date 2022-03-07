@@ -130,8 +130,8 @@ todo_include_todos = True
 # a list of builtin themes.
 
 # html_theme = "classic" # old'n'ugly theme
-# html_theme="sphinx_rtd_theme" # you might need to install with pip3
-html_theme = 'alabaster' # nice
+html_theme="sphinx_rtd_theme" # you might need to install with pip3
+# html_theme = 'alabaster' # nice
 
 # some options for the classic theme
 """
