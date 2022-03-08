@@ -15,7 +15,6 @@ skeleton.greeters.base
    
       main
       test1
-      test2
    
    
 

@@ -201,9 +201,9 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">elsampsa</span><span class="o">/</span><span class="n">skeleton</span>
 <span class="n">mv</span> <span class="n">skeleton</span> <span class="n">your_package_name</span>
 <span class="n">cd</span> <span class="n">your_package_name</span>
-<span class="o">./</span><span class="n">reinit</span><span class="o">.</span><span class="n">bash</span>
-<span class="o">./</span><span class="n">setauthor</span><span class="o">.</span><span class="n">bash</span> <span class="s2">&quot;Janne Jantunen&quot;</span>
-<span class="o">./</span><span class="n">setver</span><span class="o">.</span><span class="n">bash</span> <span class="s2">&quot;0.1&quot;</span>
+<span class="n">bash</span><span class="o">/</span><span class="n">reinit</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">bash</span><span class="o">/</span><span class="n">setauthor</span><span class="o">.</span><span class="n">bash</span> <span class="s2">&quot;Janne Jantunen&quot;</span>
+<span class="n">bash</span><span class="o">/</span><span class="n">setver</span><span class="o">.</span><span class="n">bash</span> <span class="s2">&quot;0.1&quot;</span>
 </pre></div>
 </div>
 <p>Finally, run this command:</p>
@@ -286,34 +286,31 @@ be updated.</p>
 <col style="width: 89%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p>bash/</p></td>
-<td><p>some helper scripts</p></td>
-</tr>
-<tr class="row-even"><td><p>changestr.bash</p></td>
+<tr class="row-odd"><td><p>changestr.bash</p></td>
 <td><p>Helper script to change strings in your package</p></td>
 </tr>
-<tr class="row-odd"><td><p>setver.bash</p></td>
+<tr class="row-even"><td><p>setver.bash</p></td>
 <td><p>Helper script to change the version of your package</p></td>
 </tr>
-<tr class="row-even"><td><p>setauthor.bash</p></td>
+<tr class="row-odd"><td><p>setauthor.bash</p></td>
 <td><p>Helper script to change the author of the package</p></td>
 </tr>
-<tr class="row-odd"><td><p>reinit.bash</p></td>
+<tr class="row-even"><td><p>reinit.bash</p></td>
 <td><p>Reinitializes the package name</p></td>
 </tr>
-<tr class="row-even"><td><p>cleanpy.bash</p></td>
+<tr class="row-odd"><td><p>cleanpy.bash</p></td>
 <td><p>Removes __pycache__ directories and .pyc files; Do maybe before “git add .”</p></td>
 </tr>
-<tr class="row-odd"><td><p>upload.bash</p></td>
+<tr class="row-even"><td><p>upload.bash</p></td>
 <td><p>Uploads your python package into PyPi</p></td>
 </tr>
-<tr class="row-even"><td><p>test_upload.bash</p></td>
+<tr class="row-odd"><td><p>test_upload.bash</p></td>
 <td><p>Uploads your python package into PyPi test repository</p></td>
 </tr>
-<tr class="row-odd"><td><p>git_tag.bash</p></td>
+<tr class="row-even"><td><p>git_tag.bash</p></td>
 <td><p>Pushes version information into git.  This script is modified by the setver.bash</p></td>
 </tr>
-<tr class="row-even"><td><p>git_rm_tag.bash</p></td>
+<tr class="row-odd"><td><p>git_rm_tag.bash</p></td>
 <td><p>Removes the version information (if you made an error)</p></td>
 </tr>
 </tbody>
@@ -479,15 +476,15 @@ be updated.</p>
 </dd>
 </dl>
 <p>The idea is that “base.py” has some base class definitions that are used bu “fancy.py” to create derived classes.  __init__.py has been tweaked so that user can import with</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">your_package_name.greeters</span> <span class="kn">import</span> <span class="n">UberFancyHelloWorld</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">your_package_name.greeters</span> <span class="kn">import</span> <span class="n">FancyHelloWorld</span>
 </pre></div>
 </div>
 <p>instead of the cumbersome</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">your_package_name.fancy.greeters</span> <span class="kn">import</span> <span class="n">UberFancyHelloWorld</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">your_package_name.fancy.greeters</span> <span class="kn">import</span> <span class="n">FancyHelloWorld</span>
 </pre></div>
 </div>
 <p>In general, use <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> only for exposing your API.  Do not write any classes or
-method there.</p>
+methods there.</p>
 <p>The file <code class="docutils literal notranslate"><span class="pre">cli.py</span></code> is the command-line entry point for the whole application.  See in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> how
 you can map a command into <code class="docutils literal notranslate"><span class="pre">cli.py</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">cli.py</span></code> handles command-line parameters, user-specific config, logging and data files and their

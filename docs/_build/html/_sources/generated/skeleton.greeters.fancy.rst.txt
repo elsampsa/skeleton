@@ -15,7 +15,6 @@ skeleton.greeters.fancy
    
       main
       test1
-      test2
    
    
 
@@ -26,10 +25,6 @@ skeleton.greeters.fancy
    .. autosummary::
    
       FancyHelloWorld
-      FancyHelloWorld2
-      FancyHelloWorld3
-      FancyHelloWorld4
-      FancyHelloWorld5
    
    
 

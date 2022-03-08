@@ -43,9 +43,9 @@ Let's suppose your name is *Janne Jantunen* and you have decided to create a new
     git clone https://github.com/elsampsa/skeleton
     mv skeleton your_package_name
     cd your_package_name
-    ./reinit.bash
-    ./setauthor.bash "Janne Jantunen"
-    ./setver.bash "0.1"
+    bash/reinit.bash
+    bash/setauthor.bash "Janne Jantunen"
+    bash/setver.bash "0.1"
 
 Finally, run this command:
 
@@ -120,7 +120,6 @@ This page has been produced with the file "docs/tutorial.rst".  Go ahead and ope
 * your_package_name/bash : Some helper scripts
 
   ================   ===============================================================================================================================
-  bash/              some helper scripts
   changestr.bash     Helper script to change strings in your package
   setver.bash        Helper script to change the version of your package
   setauthor.bash     Helper script to change the author of the package
@@ -258,17 +257,17 @@ The idea is that "base.py" has some base class definitions that are used bu "fan
 
 ::
 
-  from your_package_name.greeters import UberFancyHelloWorld
+  from your_package_name.greeters import FancyHelloWorld
 
 
 instead of the cumbersome
 
 ::
 
-  from your_package_name.fancy.greeters import UberFancyHelloWorld
+  from your_package_name.fancy.greeters import FancyHelloWorld
   
 In general, use ``__init__.py`` only for exposing your API.  Do not write any classes or
-method there.
+methods there.
 
 The file ``cli.py`` is the command-line entry point for the whole application.  See in ``setup.py`` how
 you can map a command into ``cli.py``.
