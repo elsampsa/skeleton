@@ -20,6 +20,7 @@ class PostInstallCommand(install):
 # The following line is modified by setver.bash
 version = '0.0.0'
 
+"""example cpp extension:
 ext = Extension("_sharedmem", 
             sources             =["cpp/sharedmem.i", "cpp/sharedmem.cpp"], 
             # include_dirs        = [getstdout("pkg-config --cflags python"), "./cpp"], # -I flags for python are automatic
@@ -31,6 +32,8 @@ ext = Extension("_sharedmem",
         )
 
 ext_modules = [ext]
+"""
+ext_modules = []
 
 # # https://setuptools.readthedocs.io/en/latest/setuptools.html#basic-use
 setup(
@@ -57,11 +60,11 @@ setup(
 
     # # "entry points" get installed into $HOME/.local/bin
     # # https://unix.stackexchange.com/questions/316765/which-distributions-have-home-local-bin-in-path
-    #entry_points={
-    #    'console_scripts': [
-    #        'my-command = skeleton.subpackage1.cli:main' # this would create a command "my-command" that maps to skeleton.subpackage1.cli method "main"
-    #    ]
-    #},
+    entry_points={
+        'console_scripts': [
+            'skeleton-command = skeleton.cli:main' # this would create a command "skeleton-command" that maps to skeleton/cli.py, method "main"
+        ]
+    },
     
     # # enable this if you need to run a post-install script:
     #cmdclass={

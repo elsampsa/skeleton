@@ -15,9 +15,10 @@ import argparse
 import configparser # https://docs.python.org/3/library/configparser.html
 from skeleton.main import app
 from skeleton import constant
-from skeleton.tools import confLogger
+from skeleton.tools import confLogger, configureLogging
 from skeleton.local import AppLocalDir
-
+from skeleton.parset import MyParameterSet
+from skeleton.main import app
 
 def process_cl_args():
   
@@ -25,12 +26,11 @@ def process_cl_args():
         return v.lower() in ("yes", "true", "t", "1")
 
     parser = argparse.ArgumentParser(usage="""     
-your_command [options] command
+skeleton-command [options] command
 
     commands:
 
-        foo     Is not bar
-        bar     Is not foo
+        run     run me
 
     options:
 
@@ -77,34 +77,52 @@ def main():
         # accessing variables from ini files:
         # cfg["DEFAULT"]["somepar"]
 
-    # see also how to set logging from a yaml file in tools.py with:
-    # configureLogging()
-    #
-    # or set loglevel manually:
+    
+    # setting loglevels manually
+    # should only be done in tests:
     """
     logger = logging.getLogger("name.space")
     confLogger(logger, logging.INFO)
     """
     # some command filtering here
-    if parsed.command in ["foo", "bar"]:
+    if parsed.command in ["run"]:
         print("command is", parsed.command)
     else:
         print("unknown command", parsed.command)
+        raise SystemExit(2)
 
     # some ideas on how to handle config files & default values
     #
     # this directory is ~/.skeleton/some_data/ :
     # init default data with yaml constant string
+
     some_data_dir = AppLocalDir("some_data")
-    if (not some_data_dir.has("some.yaml")) or parsed.reset:
-        with open(some_data_dir.getFile("some.yaml"), "w") as f:
+    if (not some_data_dir.has("some.yml")) or parsed.reset:
+        with open(some_data_dir.getFile("some.yml"), "w") as f:
             f.write(constant.SOME)
-    # init default ParameterSet:
-    if parsed.reset:
-        other_dir = AppLocalDir("some_other_data")
+
+    # init default constant.MyParameterSet into ~/.skeleton/some_other_pars/default.yml
+    other_dir = AppLocalDir("some_other_pars")
+    if (not other_dir.has("default.yml")) or parsed.reset:
         with open(other_dir.getFile("default.yml"),"w") as f:
-            f.write(constant.some_parameter_set())
+            f.write(constant.my_parameter_set())
+
+    # tries to read & set loglevels from a yaml file:
+    configureLogging(parsed.reset)
+
+    # read MyParameterSet
+    with open(other_dir.getFile("default.yml"),"r") as f:
+        config_str = f.read()
+    try:
+        my_parameter_set = MyParameterSet(config_str)
+    except Exception as e:
+        print("FATAL : your MyParameterSet config file is broken")
+        print("FATAL : failed with '%s'" % (str(e)))
+        print("FATAL : remove/fix it and start the program again")
+        raise SystemExit(2)
+
+    app(my_parameter_set = my_parameter_set)
+
 
 if (__name__ == "__main__"):
     main()
-

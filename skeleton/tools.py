@@ -28,7 +28,7 @@ from . import constant
 is_py3 = (sys.version_info >= (3,0))
 
 
-def configureLogging():
+def configureLogging(reset = False):
     """Define logging & loglevels using an external yaml config file
     """
     # this was useful: https://gist.github.com/glenfant/4358668
@@ -37,7 +37,7 @@ def configureLogging():
     log_config_dir = AppLocalDir("logging")
     # now we have directory "~/.skeleton/logging"
 
-    if not log_config_dir.has("default.yml"):
+    if not log_config_dir.has("default.yml") or reset:
         print("WARNING: initializing logger configuration")
         with open(log_config_dir.getFile("default.yml"),"w") as f:
             f.write(constant.LOGGING_CONF_YAML_DEFAULT)
@@ -53,7 +53,7 @@ def configureLogging():
         logging.config.dictConfig(logging_config['logging'])
     except Exception as e:
         print("FATAL : your logging configuration is broken")
-        print("FATAL : failed with %s" % (str(e)))
+        print("FATAL : failed with '%s'" % (str(e)))
         print("FATAL : remove it and start the program again")
         raise SystemExit(2)
 

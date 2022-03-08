@@ -2,42 +2,51 @@ import yaml
 from pprint import pformat
 
 class ParameterSet:
-    """
+    yaml_model=None # must subclass
+    """Please subclass like this:
+    
+    ::
+    
+        class MyParameterSet(ParameterSet):
+            yaml_model = [three quotes]\
+                %YAML 1.2
+                ---
+                some: 1
+                typical: kokkelis
+                parameters: kikkelis
+                for_your_parameter_set:
+                    name : my_resource
+        [three quotes]
 
-    Suppose this yaml string:
+    Use like this:
 
     ::
+
+        p = MyParameterSet()
+        p.typical # "kokkelis"
+        print(p.getStr()) # shows whole structure as a pprinted dict
     
-        %YAML 1.2
-        ---
-        config:
-            version: 1
-            some_server: kokkelis
-            some_par: kikkelis
-            resource:
-                name : my_resource
-                
-    You would do this:
+    Setting values:
     
     ::
     
-        p = ParameterSet(yaml_str)
-        c = p.config # another ParameterSet instance with version, some_server, etc.
-        c.some_server # "kokkelis"
-        print(c.getStr()) # shows whole structure as a pprinted dict
+        p.for_your_parameter_set.name = "something"
     
-    Setting:
-    
+
+    Functions using these parameters, nicely declared with the custom class:
+
     ::
-    
-        p.config.resource.name = "new_name"
-    
+
+        def func(my_parameter_set: MyParameterSet):
+            pass
+
+
     """
-    def __init__(self, inp_str: str = None, inp_dic: dict = None):
-        self.set_("saved_str", inp_str)
-        if (inp_dic is None) and (inp_str is None):
-            raise(AssertionError("provide a yaml string or a dict"))        
+    def __init__(self, inp_str: str = None, inp_dic = None):
         if inp_dic is None:
+            if inp_str is None:
+                inp_str = self.yaml_model
+            self.set_("saved_str", inp_str)
             tmp_dic = yaml.safe_load(inp_str)
         else:
             tmp_dic = inp_dic
@@ -89,3 +98,15 @@ class ParameterSet:
         # messes up the ordering..
         return yaml.dump(self.toDict())
 
+
+class MyParameterSet(ParameterSet):
+    yaml_model="""\
+%YAML 1.2
+---
+config:
+    version: 1
+    some_par_1: kikkelis
+    some_par_2: kokkelis
+    main_par:
+        sub_par: 123
+"""
