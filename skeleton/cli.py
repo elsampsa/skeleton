@@ -19,6 +19,7 @@ from skeleton.tools import confLogger, configureLogging
 from skeleton.local import AppLocalDir
 from skeleton.parset import MyParameterSet
 from skeleton.main import app
+from skeleton import singleton
 
 def process_cl_args():
   
@@ -121,6 +122,11 @@ def main():
         print("FATAL : remove/fix it and start the program again")
         raise SystemExit(2)
 
+    my_parameter_set.validate()
+    # print(my_parameter_set.getStr())
+    singleton.setSomeGlobalParameter(my_parameter_set.some_par_1)
+
+    # start the program:
     app(my_parameter_set = my_parameter_set)
 
 

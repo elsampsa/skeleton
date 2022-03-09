@@ -13,13 +13,16 @@ This file is part of the skeleton library
 import logging
 from skeleton.parset import MyParameterSet
 from skeleton.greeters import BaseHelloWorld, FancyHelloWorld
+from skeleton import singleton
 
 def app(my_parameter_set: MyParameterSet = None):
     assert(my_parameter_set is not None), "needs my_parameter_set"
     p = my_parameter_set # shorthand
-    print("got subpar:", p.config.main_par.sub_par)
+    print("got subpar:", p.main_par.sub_par)
+    print("got parameter from singleton:", singleton.some_global_parameter)
+    print("subobject from a list", p.main_par.a_list[1].subkey1)
     # change it
-    p.config.main_par.sub_par = 456
+    p.main_par.sub_par = 456
     print("all pars:", p.toDict())
     b = BaseHelloWorld(person="me")
     f = FancyHelloWorld(person="you")

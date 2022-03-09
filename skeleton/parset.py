@@ -51,14 +51,40 @@ class ParameterSet:
         else:
             tmp_dic = inp_dic
         self.set_("dic_", {})
-        for key in tmp_dic.keys():
-            if isinstance(tmp_dic[key], dict):
-                p = ParameterSet(inp_dic = tmp_dic[key])
+        for key, value in tmp_dic.items():
+            if isinstance(value, dict):
+                p = ParameterSet(inp_dic = value)
+            elif isinstance(value, list):
+                p = self.listToParset(value)
             else:
-                p = tmp_dic[key]
+                p = value
             self.set_(key, p) # so that getattr for nicely for these
             self.dic_[key] = p # ..mirror
         
+    def listToParset(self, lis):
+        lis_ = []
+        for el in lis:
+            if isinstance(el, dict):
+                p = ParameterSet(inp_dic = el)
+            elif isinstance(el, list):
+                p = self.handleList(el)
+            else:
+                p = el
+            lis_.append(p)
+        return lis_
+
+    def listToDic(self, lis):
+        lis_ = []
+        for el in lis:
+            if isinstance(el, ParameterSet):
+                p = el.toDict()
+            elif isinstance(el, list):
+                p = self.listToDic(el)
+            else:
+                p = el
+            lis_.append(p)
+        return lis_
+
     def getSavedStr(self):
         return self.saved_str
         
@@ -75,12 +101,26 @@ class ParameterSet:
         self.dic_[key] = value
         super().__setattr__(key, value)
 
+    def listToStr(self, lis, cc = 0):
+        st=""
+        for el in lis:
+            st += cc*" " + "- "
+            if isinstance(el, ParameterSet):
+                st += el.getStr(cc+2)
+            elif isinstance(el, list):
+                st += self.listToStr(el, cc+2)
+            else:
+                st += str(el) + "\n"
+        return st
+
     def getStr(self, cc=0):
         st=""
         for key, value in self.dic_.items():
             st += cc*" " + key +": "
             if isinstance(value, ParameterSet):
                 st += "\n" + value.getStr(cc+2)
+            elif isinstance(value, list):
+                st += "\n" + self.listToStr(value, cc+2)
             else:
                 st += str(value) + "\n"
         return st
@@ -90,6 +130,8 @@ class ParameterSet:
         for key, value in self.dic_.items():
             if isinstance(value, ParameterSet):
                 out_dic[key] = value.toDict()
+            elif isinstance(value, list):
+                out_dic[key] = self.listToDic(value)
             else:
                 out_dic[key] = value
         return out_dic
@@ -99,14 +141,47 @@ class ParameterSet:
         return yaml.dump(self.toDict())
 
 
+    def checkList(self, lis, model):
+        lis_ = []
+        for i, el in enumerate(lis):
+            m = model[i]
+            assert(el.__class__ == m.__class__), "list element type should be " + m.__class__.__name__
+            if isinstance(el, ParameterSet):
+                el.check(m)
+            elif isinstance(el, list):
+                self.checkList(el, m)
+
+
+    def check(self, model):
+        for key, value in self.dic_.items():
+            assert(key in model.dic_), "key '"+key+"' missing"
+            class_ = model.dic_[key].__class__
+            assert(value.__class__ == class_),\
+                "type for key '"+key+"' should be " + class_.__name__
+            if isinstance(value, ParameterSet):
+                value.check(model.dic_[key])
+            elif isinstance(value, list):
+                self.checkList(value, model.dic_[key])
+
+
+    def validate(self):
+        self.check(self.__class__())
+
+
+
 class MyParameterSet(ParameterSet):
     yaml_model="""\
 %YAML 1.2
 ---
-config:
-    version: 1
-    some_par_1: kikkelis
-    some_par_2: kokkelis
-    main_par:
-        sub_par: 123
+version: 1
+some_par_1: kikkelis
+some_par_2: kokkelis
+main_par:
+    sub_par: 123
+    float_par: 1.2
+    a_list:
+        - 1
+        - subkey1: 2.1
+          subkey2: 2.2
+        - 3
 """
