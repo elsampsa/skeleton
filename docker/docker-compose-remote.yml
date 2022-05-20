@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:  
+  skeleton:
+    build:
+      context: ./skeleton
+      dockerfile: docker/Dockerfile
+    restart: 'no'
+    volumes:
+      - ./skeleton:/usr/src/app # mount your code into docker for interactive code development
+      - ./somedata:/usr/somedata
+      - ./secrets:/usr/secrets
+    entrypoint: /usr/src/app/docker/entrypoint_local.bash # you might need a different entrypoint for the remote run

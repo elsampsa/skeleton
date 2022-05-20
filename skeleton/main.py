@@ -10,12 +10,16 @@ This file is part of the skeleton library
 
 [copy-paste your license here]
 """
-import logging
+import logging, time, os, sys, signal
 from skeleton.parset import MyParameterSet
 from skeleton.greeters import BaseHelloWorld, FancyHelloWorld
 from skeleton import singleton
 
+def handle_exit(sig, frame):
+    raise(SystemExit)
+
 def app(my_parameter_set: MyParameterSet = None):
+    signal.signal(signal.SIGTERM, handle_exit)
     assert(my_parameter_set is not None), "needs my_parameter_set"
     p = my_parameter_set # shorthand
     print("got subpar:", p.main_par.sub_par)
@@ -26,4 +30,15 @@ def app(my_parameter_set: MyParameterSet = None):
     print("all pars:", p.toDict())
     b = BaseHelloWorld(person="me")
     f = FancyHelloWorld(person="you")
-    print(b, "\n", f)
+    print(b)
+    print(f)
+    while True:
+        t=2
+        try:
+            print("sleeping for %s secs" % (t))
+            time.sleep(2)
+        except (KeyboardInterrupt, SystemExit):
+            print("you pressed CTRL-C: will exit")
+            break
+    print("bye!")
+

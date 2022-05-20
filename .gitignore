@@ -9,3 +9,7 @@ _sharedmem.cpython*
 .ipynb_checkpoints/
 Untitled*.ipynb
 .vscode/
+*.o
+*.so
+*wrap.cpp
+skeleton_cpp/skeleton_cpp/test

@@ -1,5 +1,5 @@
 from setuptools import setup, Extension, find_packages
-import sys
+import sys, os
 
 # # enable the following section if you need to run a post-install script
 """
@@ -17,32 +17,67 @@ class PostInstallCommand(install):
     # # then those directories are wrong: they are still temp directories, i.e. "/tmp/whatever"
 """
 
+separate_cpp_module = False
+if '--separate-cpp-module' in sys.argv:
+    index = sys.argv.index('--separate-cpp-module')
+    sys.argv.pop(index)  # Removes the '--separate_cpp_module'
+    # value = sys.argv.pop(index)  # Returns the element after the '--foo'
+    #if separate_cpp_module not in ["true", "false"]:
+    #    print("please use --separate_cpp_module true / --separate_cpp_module false")
+    separate_cpp_module = True
+
 # The following line is modified by setver.bash
 version = '0.0.0'
 
-"""example cpp extension:
-ext = Extension("_sharedmem", 
-            sources             =["cpp/sharedmem.i", "cpp/sharedmem.cpp"], 
-            # include_dirs        = [getstdout("pkg-config --cflags python"), "./cpp"], # -I flags for python are automatic
-            include_dirs        = ["./cpp"],
-            extra_compile_args  = ["-std=c++11"],
-            # extra_link_args     = [getstdout("pkg-config --libs python3")], # -l flags for python are automatic
-            libraries           = [],
-            swig_opts           = ["-c++", "-I ./cpp"]
-        )
-
-ext_modules = [ext]
-"""
 ext_modules = []
+"""You can choose to "bundle" the cpp extension module into the main package,
+or create a separate module for it.  In the latter case, please comment out
+the cpp extension module section here.  Please see also the discussion in 
+skeleton_cpp/README.md
+"""
+
+if separate_cpp_module:
+    print("NOT compiling/bundling the CPP module")
+else: # cpp module is bundled to the main package as an extension
+    #"""example cpp extension starts>
+    try:
+        import numpy
+    except ModuleNotFoundError:
+        print("Before installing this package, you need to install numpy 'manually'")
+        sys.exit(2)
+
+    ext = Extension("_skeleton_cpp_module", 
+        sources             =["skeleton_cpp/skeleton_cpp/skeleton_cpp_module.i", "skeleton_cpp/skeleton_cpp/skeleton_cpp_module.cpp"], 
+        # include_dirs        = [getstdout("pkg-config --cflags python"), "./cpp"], # -I flags for python are automatic
+        include_dirs        = ["./skeleton_cpp/skeleton_cpp", numpy.get_include()],
+        extra_compile_args  = ["-std=c++11"],
+        # extra_link_args     = [getstdout("pkg-config --libs python3")], # -l flags for python are automatic
+        libraries           = [],
+        # swig_opts           = ["-c++", "-outdir something", "-I./cpp"]# this will never work, swig insists in "Unrecognized option -outdir somedir""
+        swig_opts           = ["-c++", "-I./skeleton_cpp/skeleton_cpp", "-I"+numpy.get_include()],
+        # optional = True     # install even if the build fails
+        optional = False
+    )
+    ext_modules = [ext]
+    #"""<example cpp extensions stops
+
+this_folder = os.path.dirname(os.path.realpath(__file__))
+path = this_folder + '/requirements.txt'
+install_requires = [] # Here we'll get: ["gunicorn", "docutils>=0.3", "lxml==0.5a7"]
+if os.path.isfile(path):
+    with open(path) as f:
+        install_requires = f.read().splitlines()
 
 # # https://setuptools.readthedocs.io/en/latest/setuptools.html#basic-use
 setup(
     name = "skeleton",
     version = version,
-    install_requires = [
-        "PyYAML",
-        'docutils>=0.3', # # List here the required packages!  List them also in "docs/snippets/requirements.txt"
-    ],
+    #install_requires = [
+    #    "PyYAML",
+    #    'docutils>=0.3', # # List here the required packages
+    #],
+
+    install_requires = install_requires, # instead, read from a file (see above)
 
     packages = find_packages(), # # includes python code from every directory that has an "__init__.py" file in it.  If no "__init__.py" is found, the directory is omitted.  Other directories / files to be included, are defined in the MANIFEST.in file
     
