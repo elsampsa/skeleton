@@ -1,16 +1,19 @@
 """
-NAME.py : Description of the file
+cli.py : cli entry-point
 
-* Copyright: 2017 [copyright holder]
+* Copyright: 2017-2023 [copyright holder]
 * Authors  : Sampsa Riikonen
-* Date     : 2017
+* Date     : 2023
 * Version  : 0.1
 
 This file is part of the skeleton library
 
+An example cli entry-point that reads some command line arguments
+and some parameters and loglevels from ~/.skeleton/some_data/
+
 [copy-paste your license here]
 """
-import logging
+import logging, sys
 import argparse
 import configparser # https://docs.python.org/3/library/configparser.html
 from skeleton.main import app
@@ -20,68 +23,38 @@ from skeleton.local import AppLocalDir
 from skeleton.parset import MyParameterSet
 from skeleton.main import app
 from skeleton import singleton
+from pathlib import Path
 
 def process_cl_args():
-  
-    def str2bool(v):
-        return v.lower() in ("yes", "true", "t", "1")
-
-    parser = argparse.ArgumentParser(usage="""     
-skeleton-command [options] command
-
-    commands:
-
-        run     run me
-
-    options:
-
-        --nice      Be nice or not.  Needs boolean value.  Default true.
-        --ini       Ini configuration file (optional)
-        --reset     Reset config files (don't specify a value)
-        
-    """)
-    # parser.register('type','bool',str2bool)  # this works only in theory..
-
-    parser.add_argument("command", action="store", type=str,                 
-                        help="mandatory command")
-
-    parser.add_argument("--nice", action="store", type=str2bool, required=False, default=False,
-                        help="Be nice")
-
-    parser.add_argument("--ini", action="store", type=str, required=False, default=None,
-                        help=".ini configuration file")
-
-    parser.add_argument('--reset', action='store_true')
-
-    parsed_args, unparsed_args = parser.parse_known_args()
-    return parsed_args, unparsed_args
+    comname = Path(sys.argv[0]).stem
+    parser = argparse.ArgumentParser(
+        usage=(
+            f'{comname} [options]\n'
+            '\n'
+            'A demo cli entry-point that caches a default config\n'
+            'file into ~./skeleton.  Logger verbosity is also defined there.\n'
+        ),
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        # ..shows default values with -h arg
+    )
+    parser.add_argument("command", action="store", type=str, help="mandatory command")
+    parser.add_argument("--flag", action="store_true", help="a boolean flag", 
+        default=False)
+    parser.add_argument("--str", action="store", help="a string", default="nada",
+        required=False)
+    parser.add_argument("--reset", action="store_true", help="reset cached config files", 
+        default=False)
+    parsed, unparsed = parser.parse_known_args()
+    for arg in unparsed:
+        print("Unknow option", arg)
+        sys.exit(2)
+    return parsed
 
 
 def main():
-    parsed, unparsed = process_cl_args()
-
-    if parsed.ini is None:
-        pass
-    else:
-        # an example how to set the loggers from an ini file
-        cfg = configparser.ConfigParser()
-        cfg.read(parsed.ini)
-        try:
-            logging.config.fileConfig(cfg, disable_existing_loggers=True)
-        except Exception as e:
-            print("there was error reading your .ini file.  Please check your logger definitions")
-            print("failed with:", e)
-            raise(e)
-        # using ini files
-        # files = cfg.read(parsed.ini)
-        # print("read files", files)
-        # accessing variables from ini files:
-        # cfg["DEFAULT"]["somepar"]
-
-    
-    # setting loglevels manually
+    parsed = process_cl_args()
+    """# setting loglevels manually
     # should only be done in tests:
-    """
     logger = logging.getLogger("name.space")
     confLogger(logger, logging.INFO)
     """

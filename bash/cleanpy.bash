@@ -5,8 +5,8 @@ find . -name "__pycache__" -exec rm -rf {} \;
 find . -name "*.pyc" -exec rm -rf {} \;
 ## python autodoc clean:
 find . -name "*.pickle" -exec rm -rf {} \;
-## clean python build
-rm -rf dist
-rm -rf build
-# rm -rf *.egg-info
-rm -f *.deb
+find . -name "dist" -exec rm -rf {} \;
+find . -name "build" -exec rm -rf {} \;
+find . -name "*.egg-info" -exec rm -rf {} \;
+find . -name "*.so" -exec rm -f {} \;
+find . -name "*.o" -exec rm -f {} \;

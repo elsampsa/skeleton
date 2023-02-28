@@ -43,9 +43,7 @@ To install a specific version, use
 Sampsa Riikonen
 
 ## Copyright
-(C) 2017-2018 Sampsa Riikonen
+(C) 2017-2023 Sampsa Riikonen
 
 ## License
 MIT
-
-

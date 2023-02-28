@@ -68,26 +68,6 @@ data:
     some: random yaml data
 """
 
-default_ini = """\
-[DEFAULT]
-ServerAliveInterval = 45
-Compression = yes
-CompressionLevel = 9
-ForwardX11 = yes
-
-[bitbucket.org]
-User = hg
-
-[topsecret.server.com]
-Port = 50022
-ForwardX11 = no
-
-[logger_skeleton]
-level = DEBUG
-handlers =
-qualname = skeleton
-"""
-
 from .parset import MyParameterSet
 
 # parameter set with the default values as defined in yaml_model

@@ -1,8 +1,14 @@
+# Package or a module
+
+This directory can be installed either as a python package, having the single module ``skeleton_cpp`` in [skeleton_cpp/](skeleton_cpp/)
+or as a second module ``skeleton_cpp`` for the ``skeleton`` package in the upper [level directory](../).
+
 # A small cpp extension here
 
-When you run ``pip3 install`` in the upper-level directory, the cpp extension is compiled automagically & placed into the correct place, whatever your scheme is (local install with ``-e``, creating a package, etc).
+When you run ``pip3 install`` in the upper-level directory, the cpp extension is compiled automagically & placed into the correct place, 
+whatever your scheme is (local install with ``-e``, creating a package, etc).
 
-In this directory you can use
+For separate debugging / testing, in this directory you can use
 ```
 compile.bash
 ```
@@ -12,8 +18,17 @@ Please do read more about importing the numpy array api in [here](https://numpy.
 
 Numpy API reference [here](https://numpy.org/doc/stable/reference/c-api/index.html).
 
+For a more ambitious / robust c++ library interfaced to python I recommend you to take a look into the main level ``skeleton_cpp_module/`` directory.  TODO
+
+# Using the cpp extension
+
+The python API is basically the ``.h`` header file you find in this directory.
+
+Take a look into [../notebook/example.ipynb](../notebook/example.ipynb) on how to use it. TODO
+
 # Numpy API Doodle
 
+Some random notes about the numpy API.  Please look at the ``.cpp`` file in this directory for practical examples.
 ```
 pa = (PyArrayObject*)pyobj;
 // get dimensions & size of each dimension

@@ -13,24 +13,25 @@ find -name "*.py" -exec sed -i -r "s/\* Version  \:.*/\* Version  \: $1.$2.$3/g"
 fs="setup.py docs/*"
 for f in $fs
 do
-  find $f -exec sed -i -r "s/version = '.*'/version = '$1.$2.$3'/g" {} \;
-  find $f -exec sed -i -r "s/release = '.*'/version = '$1.$2.$3'/g" {} \;
+  find $f -type f -exec sed -i -r "s/version = '.*'/version = '$1.$2.$3'/g" {} \;
+  find $f -type f -exec sed -i -r "s/release = '.*'/version = '$1.$2.$3'/g" {} \;
 done
 
 export version_file=$(find -name "version.py")
 
-fs="git_tag.bash git_rm_tag.bash "$version_file
+fs="bash/git_tag.bash bash/git_rm_tag.bash "$version_file
 for f in $fs
 do
   # mod version numbers in git_tag.bash
-  sed -i -r "s/VERSION_MAJOR=.*/VERSION_MAJOR=$1/g" bash/$f
-  sed -i -r "s/VERSION_MINOR=.*/VERSION_MINOR=$2/g" bash/$f
-  sed -i -r "s/VERSION_PATCH=.*/VERSION_PATCH=$3/g" bash/$f
+  sed -i -r "s/VERSION_MAJOR=.*/VERSION_MAJOR=$1/g" $f
+  sed -i -r "s/VERSION_MINOR=.*/VERSION_MINOR=$2/g" $f
+  sed -i -r "s/VERSION_PATCH=.*/VERSION_PATCH=$3/g" $f
 done
 
-echo
-echo Updating docs
-echo
-cd docs
-./compile.bash
-cd ..
+## let's not do this here..
+#echo
+#echo Updating docs
+#echo
+#cd docs
+#./compile.bash
+#cd ..

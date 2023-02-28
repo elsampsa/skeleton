@@ -21,7 +21,7 @@
 
 
 /**
- * @brief Just call some c++ **it from python
+ * @brief Just call some c++ from python
  * 
  */
 class Test {
@@ -51,11 +51,11 @@ public:
 };
 
 /**
- * @brief Do some **it with a separate thread at the c++ side, 
- * give notice when **it is ready to be read at python side.
+ * @brief Do something with a separate thread at the c++ side, 
+ * give notice when something is ready to be read at python side.
  * The thread is running continuously in the background during the
  * object's lifetime
- * WARNING: this is work-in-progress, not ready yet
+ * WARNING: NOT UP-TO-DATE!
  */
 class TestThread {
 
@@ -87,7 +87,7 @@ protected:
 
 public:
     int getFd(); ///< Get the notifying eventfd
-    void put(PyObject* po); ///< Give some **it (numpy array) for manipulation
+    void put(PyObject* po); ///< Give numpy array for manipulation
     PyObject* load(); ///< returns the manipulated numpy array
     PyObject* waitLoad(); ///< like load, but waits first for the event_fd to fire
 };

@@ -1,3 +1,6 @@
+"""
+"""
+
 from setuptools import setup, Extension, find_packages
 import sys
 
@@ -11,6 +14,21 @@ except ModuleNotFoundError:
     print("Before installing this package, you need to install numpy 'manually'")
     sys.exit(2)
 
+"""Logic here is:
+
+An extension with the name "_skeleton_cpp_module" is installed to the system.
+But we don't use that directly as that's simply an .so file..
+
+..we still need the "skeleton_cpp" package, i.e. 
+
+::
+
+    skeleton_cpp/__init__.py
+    skeleton_cpp/skeleton_cpp_module.py 
+
+That file ``skeleton_cpp_module.py`` is written by swig & has the nice
+interface to python.
+"""
 ext = Extension("_skeleton_cpp_module", 
     sources             =["skeleton_cpp/skeleton_cpp_module.i", "skeleton_cpp/skeleton_cpp_module.cpp"], 
     # include_dirs        = [getstdout("pkg-config --cflags python"), "./cpp"], # -I flags for python are automatic
@@ -32,11 +50,9 @@ setup(
     install_requires = [
         "numpy",
     ],
-    
     packages = [
         "skeleton_cpp"
     ],
-
     # metadata for upload to PyPI
     author           = "Sampsa Riikonen",
     author_email     = "sampsa.riikonen@iki.fi",

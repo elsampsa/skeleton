@@ -15,7 +15,7 @@ Example python package
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 8
 
    tutorial
    intro

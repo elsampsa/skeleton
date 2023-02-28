@@ -21,6 +21,8 @@ import inspect
 import logging
 import logging.config
 import yaml
+import argparse, configparser
+from pathlib import Path
 
 from . import local
 from . import constant
@@ -60,11 +62,13 @@ def configureLogging(reset = False):
 
 def confLogger(logger, level):
     logger.setLevel(level)
-    if not logger.hasHandlers():
-        formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-        ch = logging.StreamHandler()
-        ch.setFormatter(formatter)    
-        logger.addHandler(ch)
+    logger.propagate = False
+    # if not logger.hasHandlers(): # when did this turn into a practical joke?
+    logger.handlers = []
+    formatter = logging.Formatter("%(name)s - %(levelname)s - %(message)s")
+    ch = logging.StreamHandler()
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
 
 
 def quickLog(name, level):
@@ -99,134 +103,51 @@ def getDataFile(fname):
   return os.path.join(getDataPath(),fname)
 
 
+class IniCLI:
+    """A configparser wrapper that does the following:
 
-def typeCheck(obj, typ):
-  """Check type of obj, for example: typeCheck(x,int)
-  """
-  if (obj.__class__!=typ):
-    raise(AttributeError("Object should be of type "+typ.__name__))
-  
-  
-def dictionaryCheck(definitions, dic):
-  """ Checks that dictionary has certain values, according to definitions
-  
-  :param definitions: Dictionary defining the parameters and their types (dic should have at least these params)
-  :param dic:         Dictionary to be checked
-  
-  An example definitions dictionary:
-  
-  |{
-  |"age"     : int,         # must have attribute age that is an integer
-  |"name"    : str,         # must have attribute name that is a string            
-  | }
-  """
-  
-  for key in definitions:
-    # print("dictionaryCheck: key=",key)
-    required_type=definitions[key]
-    try:
-      attr=dic[key]
-    except KeyError:
-      raise(AttributeError("Dictionary missing key "+key))
-    # print("dictionaryCheck:","got: ",attr,"of type",attr.__class__,"should be",required_type)
-    if (attr.__class__ != required_type):
-      raise(AttributeError("Wrong type of parameter "+key+" : is "+attr.__class__.__name__+" should be "+required_type.__name__))
-      return False # eh.. program quits anyway
-  return True
-    
+    In ctor, adds an .ini file as an argument
 
-def objectCheck(definitions, obj):
-  """ Checks that object has certain attributes, according to definitions
-  
-  :param definitions: Dictionary defining the parameters and their types (obj should have at least these attributes)
-  :param obj:         Object to be checked
-  
-  An example definitions dictionary:
-  
-  |{
-  |"age"     : int,         # must have attribute age that is an integer
-  |"name"    : str,         # must have attribute name that is a string            
-  | }
-  """
-  
-  for key in definitions:
-    required_type=definitions[key]
-    attr=getattr(obj,key) # this raises an AttributeError of object is missing the attribute - but that is what we want
-    # print("objectCheck:","got: ",attr,"of type",attr.__class__,"should be",required_type)
-    if (attr.__class__ != required_type):
-      raise(AttributeError("Wrong type of parameter "+key+" : should be "+required_type.__name__))
-      return False # eh.. program quits anyway
-  return True
-    
-  
-def parameterInitCheck(definitions, parameters, obj):
-  """ Checks that parameters are consistent with a definition
-  
-  :param definitions: Dictionary defining the parameters, their default values, etc.
-  :param parameters:  Dictionary having the parameters to be checked
-  :param obj:         Checked parameters are attached as attributes to this object
-  
-  An example definitions dictionary:
-  
-  |{
-  |"age"     : (int,0),                 # parameter age defaults to 0 if not specified
-  |"height"  : int,                     # parameter height **must** be defined by the user
-  |"indexer" : some_module.Indexer,     # parameter indexer must of some user-defined class some_module.Indexer
-  |"cleaner" : checkAttribute_cleaner,  # parameter cleaner is check by a custom function named "checkAttribute_cleaner" (that's been defined before)
-  |"weird"   : None                     # parameter weird is passed without any checking - this means that your API is broken  :)
-  | }
-  
-  """
-  definitions=copy.copy(definitions)
-  #print("parameterInitCheck: definitions=",definitions)
-  for key in parameters:
-    try:
-      definition=definitions.pop(key) 
-    except KeyError:
-      raise AttributeError("Unknown parameter "+str(key))
-      
-    parameter =parameters[key]
-    if (definition.__class__==tuple):   # a tuple defining (parameter_class, default value)
-      #print("parameterInitCheck: tuple")
-      required_type=definition[0]
-      if (parameter.__class__!=required_type):
-        raise(AttributeError("Wrong type of parameter "+key+" : should be "+required_type.__name__))
-      else:
-        setattr(obj,key,parameter)
-    elif isinstance(definition, types.FunctionType):
-      # object is checked by a custom function
-      #print("parameterInitCheck: callable")
-      ok=definition(parameter)
-      if (ok):
-        setattr(obj,key,parameter)
-      else:
-        raise(AttributeError("Checking of parameter "+key+" failed"))
-    elif (definition==None):            # this is a generic object - no checking whatsoever
-      #print("parameterInitCheck: None")
-      setattr(obj,key,parameter)
-    elif (definition.__class__==type):  # Check the type
-      #print("parameterInitCheck: type")
-      required_type=definition
-      if (parameter.__class__!=required_type):
-        raise(AttributeError("Wrong type of parameter "+key+" : should be "+required_type.__name__))
-      else:
-        setattr(obj,key,parameter)
-    else:
-      raise(AttributeError("Check your definitions syntax"))
-      
-  # in definitions, there might still some leftover parameters the user did not bother to give
-  for key in definitions.keys():
-    definition=definitions[key]
-    if (definition.__class__==tuple):   # a tuple defining (parameter_class, default value)
-        setattr(obj,key,definition[1])
-    else:
-      raise(AttributeError("Missing a mandatory parameter "+key))
-    
-    
-def noCheck(obj):
-  return True
+    After that, you can use the method ``add_argument`` to add more arguments in the
+    normal way
 
+    __call__ returns (parsed_arguments, cfg), where cfg is the data from configparser
+    """
+    def __init__(self, default_ini, descr=''):
+        comname = Path(sys.argv[0]).stem
+        self.parser = argparse.ArgumentParser(
+            usage=(
+                f'{comname} [options]\n'
+            ),
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter
+            # ..shows default values with -h arg
+        )
+        self.parser.add_argument("--ini", action="store", type=str, required=False,
+            help=".ini configuration file", default=default_ini)
 
+    def add_argument(self, *args, **kwargs):
+        self.parser.add_argument(*args, **kwargs)
 
+    def getParser(self):
+        return self.parser
 
-
+    def __call__(self):
+        parsed, unparsed = self.parser.parse_known_args()
+        parsed.ini = os.path.abspath(parsed.ini)
+        assert(os.path.exists(parsed.ini)), (
+            f"can't find .ini file '{parsed.ini}' sure you defined absolute path?\n"
+            "you can also define the path with the --ini flag\n"
+        )
+        print("using ini file", parsed.ini)
+        for arg in unparsed:
+            print("Unknow option", arg)
+            sys.exit(2)
+        cfg = configparser.ConfigParser()
+        cfg.read(parsed.ini)
+        try:
+            logging.config.fileConfig(cfg, disable_existing_loggers=True)
+        except Exception as e:
+            print("there was error reading your .ini file.  Please check your logger definitions")
+            print("failed with:", e)
+            raise(e)
+        return parsed, cfg

@@ -28,6 +28,12 @@ class FancyHelloWorld(BaseHelloWorld):
         st += "**************\n"
         return st
 
+    def someMethod(self):
+        """Try & change this & observe the interactive change in the test notebook at ../../notebook/example.ipynb
+        by just calling this method again after changing it
+        """
+        print("hello from someMethod")
+        # print("another hello from someMethod")
 
 def test1():
     """Test FancyHelloWorld

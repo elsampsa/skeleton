@@ -1,0 +1,43 @@
+FROM ubuntu:20.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Finland
+
+RUN apt-get update -y && \
+    apt-get install -y tzdata && \
+    apt-get install -y python3-pip python3-dev && \
+    apt-get install -y build-essential swig && \
+    apt-get install -y dos2unix
+
+RUN pip3 install --upgrade pip
+RUN pip3 install numpy 
+# ..numpy required before we can compile our custom cpp module for python3
+
+# copy cpp extension in place, compile & install it
+ADD skeleton_cpp /tmp/skeleton_cpp
+WORKDIR /tmp/skeleton_cpp
+RUN pip3 install -vvv .
+
+# we use this scheme:
+# /usr/src/app/
+#    requirements.txt, MANIFEST.in, setup.py --> copied to image
+#    skeleton/ --> docker volume with hot-reloading (see ../skeleton from here)
+#        docker shall not write __pycache__ directories in here (see (**))
+#       docker/ --> docker volume with entry-points from code (see ../docker from here)
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY requirements.txt .
+COPY MANIFEST.in .
+COPY setup.py .
+# install dependencies
+# the app itself will be installed in development / hot-reload mode
+RUN pip3 install -r requirements.txt
+
+# here, emphasis on the UN word:
+ENV PYTHONUNBUFFERED 1
+# handle python byte-code writing: (**)
+# we don't want the docker to write _anything_ into our local directory
+# so let's divert the python bytecode away from there:
+# ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONPYCACHEPREFIX=/tmp
+# for final entrypoint, please see docker-compose-dev.yml

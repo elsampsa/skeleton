@@ -21,7 +21,8 @@ class BaseHelloWorld:
     def __init__(self, person):
         self.logger = logging.getLogger(self.__class__.__name__)
         self.person = person
-        self.logger.debug("__init__ : hello")
+        self.logger.info("info level msg from __init__")
+        self.logger.debug("debug level msg from __init__")
 
     def __str__(self):
         st = "Hello from " + self.person
