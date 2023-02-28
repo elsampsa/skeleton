@@ -1,12 +1,17 @@
-# Skeleton - python module template with autodocumentation and packaging
+# Skeleton - Your Ultimate Python Module Scaffold
 
 ## Synopsis
 
-Tutorial/template for autodocumentation and packaging.
+With the push of a button, you can create your personalized python package, including:
 
-Base your python package on this template and you will get neatly organized python library - with almost automagic autodocumentation and packaging. 
+- Correct python packaging scheme
+- Interactive code development with notebooks
+- Dockerization
+- Autodocumentation
+- Numpy C++ extensions
+- And much more!
 
-For documentation, click [here](https://elsampsa.github.io/skeleton)
+For full documentation, click [here](https://elsampsa.github.io/skeleton)
 
 If you are using windows, check [this](windows.md) out.
 
